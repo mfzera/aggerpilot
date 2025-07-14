@@ -1,0 +1,88 @@
+Dialog | Name:  | AutomationId: 
+Custom | Name:  | AutomationId: 
+Static | Name: NOME | AutomationId: 
+Static | Name: NOME | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Edit | Name:  | AutomationId: Text
+Static | Name: DOCUMENTO | AutomationId: 
+Static | Name: DOCUMENTO | AutomationId: 
+Edit | Name:  | AutomationId: DocumentoBox
+Static | Name: NASCIMENTO | AutomationId: 
+Static | Name: NASCIMENTO | AutomationId: 
+Custom | Name:  | AutomationId: NascimentoBox
+Edit | Name:  | AutomationId: PART_TextBox
+Button | Name: M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z | AutomationId: PART_Button
+Static | Name: DDD 1 | AutomationId: 
+Static | Name: DDD 1 | AutomationId: 
+Edit | Name:  | AutomationId: Prefixo1Box
+Static | Name: TELEFONE 1 | AutomationId: 
+Static | Name: TELEFONE 1 | AutomationId: 
+Edit | Name:  | AutomationId: Telefone1Box
+Static | Name: DDD 2 | AutomationId: 
+Static | Name: DDD 2 | AutomationId: 
+Edit | Name:  | AutomationId: Prefixo2Box
+Static | Name: TELEFONE 2 | AutomationId: 
+Static | Name: TELEFONE 2 | AutomationId: 
+Edit | Name:  | AutomationId: Telefone2Box
+Static | Name: E-MAIL | AutomationId: 
+Static | Name: E-MAIL | AutomationId: 
+Edit | Name:  | AutomationId: EmailBox
+Static | Name: ITEM | AutomationId: 
+Static | Name: ITEM | AutomationId: 
+Edit | Name:  | AutomationId: 
+Static | Name: RAMO | AutomationId: 
+Static | Name: RAMO | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Static | Name: PRODUTO | AutomationId: 
+Static | Name: PRODUTO | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Static | Name: VENCIMENTO | AutomationId: 
+Static | Name: VENCIMENTO | AutomationId: 
+Custom | Name:  | AutomationId: 
+Edit | Name:  | AutomationId: PART_TextBox
+Button | Name: M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z | AutomationId: PART_Button
+Static | Name: VALOR | AutomationId: 
+Static | Name: VALOR | AutomationId: 
+Edit | Name: R$ 0,00 | AutomationId: 
+Static | Name: VENDEDOR | AutomationId: 
+Static | Name: VENDEDOR | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Static | Name: STATUS | AutomationId: 
+Static | Name: STATUS | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Static | Name: STATUS PERSONALIZADO | AutomationId: 
+Static | Name: STATUS PERSONALIZADO | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Edit | Name:  | AutomationId: PART_EditableTextBox
+Static | Name: SAIR EM RENOVAÇÕES | AutomationId: 
+Static | Name: SAIR EM RENOVAÇÕES | AutomationId: 
+Button | Name:  | AutomationId: 
+Static | Name: OBSERVAÇÕES | AutomationId: 
+Static | Name: OBSERVAÇÕES | AutomationId: 
+Edit | Name:  | AutomationId: 
+Separator | Name:  | AutomationId: 
+Static | Name: AGENDAR TAREFA | AutomationId: 
+Static | Name: RESPONSÁVEL | AutomationId: 
+Static | Name: RESPONSÁVEL | AutomationId: 
+ComboBox | Name:  | AutomationId: 
+Static | Name: AGENDAMENTO | AutomationId: 
+Static | Name: AGENDAMENTO | AutomationId: 
+Custom | Name:  | AutomationId: 
+Edit | Name: 04/07/2025 | AutomationId: PART_TextBox
+Button | Name: M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z | AutomationId: PART_Button
+Static | Name: HORA | AutomationId: 
+Static | Name: HORA | AutomationId: 
+Edit | Name: 11:42 | AutomationId: 
+Static | Name: CRIAR TAREFA | AutomationId: 
+Static | Name: CRIAR TAREFA | AutomationId: 
+Button | Name:  | AutomationId: 
+Static | Name: ABRIR TAREFA | AutomationId: 
+Static | Name: ABRIR TAREFA | AutomationId: 
+Button | Name:  | AutomationId: 
+MenuItem | Name: INCLUIR ANEXOS | AutomationId: 
+Static | Name: INCLUIR ANEXOS | AutomationId: 
+MenuItem | Name: SALVAR | AutomationId: SalvarButton
+Static | Name: SALVAR | AutomationId: 
+MenuItem | Name: CANCELAR | AutomationId: 
+Static | Name: CANCELAR | AutomationId: 
+Image | Name:  | AutomationId: 
