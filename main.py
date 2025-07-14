@@ -1,11 +1,14 @@
-# Arquivo: main.py (VERSÃO CORRIGIDA E FINAL)
+# Arquivo: main.py (VERSÃO MODIFICADA PARA NÃO DELETAR O PDF)
 
 import os
 from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS
 from gerenciador_sftp import GerenciadorSFTP
+# As importações abaixo podem variar dependendo da sua estrutura final
+# Vou usar as que estavam no seu código.
 from agger import conectar_e_abrir_prospeccao
 from banco import buscar_cliente
-from preencher import preencher_todos
+# Supondo que 'preencher_todos' venha de um módulo 'preencher'
+from preencher.preencher import executar_preenchimento as preencher_todos 
 
 def processar_proposta():
     """Função principal que orquestra todo o processo."""
@@ -42,12 +45,22 @@ def processar_proposta():
                 # A mensagem de erro já é impressa pela função buscar_cliente, então só saímos
                 return
 
-            # Continua com a automação que você já tinha
-            janela = conectar_e_abrir_prospeccao()
-            preencher_todos(dados_cliente)
+            # NOTA: A automação com PyAutoGUI não precisa da 'janela' retornada aqui
+            conectar_e_abrir_prospeccao()
+            # A função de preenchimento do PyAutoGUI é chamada aqui
+            sucesso = preencher_todos(dados_cliente)
+            
+            if sucesso:
+                print("✅ Automação concluída com sucesso.")
+                
+                # --- ALTERAÇÃO AQUI ---
+                # A linha abaixo foi comentada para NÃO apagar mais o PDF do servidor.
+                # sftp.remover_arquivo_remoto(caminho_remoto_completo)
+                print(f"✅ Arquivo '{primeiro_pdf}' foi processado e MANTIDO no servidor.")
 
-            # Se tudo deu certo, remove o arquivo do servidor
-            sftp.remover_arquivo_remoto(caminho_remoto_completo)
+            else:
+                print("❌ Automação falhou. O arquivo não foi processado completamente.")
+
 
         except Exception as e:
             print(f"🚨 Ocorreu um erro durante o processamento no main: {e}")

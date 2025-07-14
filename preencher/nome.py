@@ -1,79 +1,49 @@
-from pywinauto import Application
+# seu_projeto/preencher/nome.py (VERSÃO FINAL COM A LÓGICA EMBUTIDA)
+
+import pyautogui
 import time
 
-def preencher_nome(nome_cliente):
-    print(f"👤 Preenchendo nome com: {nome_cliente}")
+IMAGEM_LABEL_NOME = 'imagens/label_nome.png' 
+OFFSET_X = 150 
 
-    app = Application(backend="uia").connect(title="AGGER GESTOR")
-    janela = app.window(title="AGGER GESTOR")
-    janela.set_focus()
-
-    # Vamos listar TODOS os Custom
-    customs = janela.descendants(control_type="Custom")
-
-    if not customs:
-        print("❌ Nenhum Custom encontrado!")
+def preencher(nome_do_cliente: str):
+    """
+    Encontra o RÓTULO do campo e clica ao lado dele para preencher.
+    Também adiciona um sufixo ao nome antes de preencher.
+    """
+    if not nome_do_cliente:
+        print("AVISO: Nome do cliente não fornecido. Pulando.")
         return
 
-    print(f"🔎 Encontrados {len(customs)} controles do tipo Custom:")
-    for idx, custom in enumerate(customs):
-        rect = custom.rectangle()
-        print(f"  [{idx}] Custom Pos=({rect.left}, {rect.top}, {rect.right}, {rect.bottom})")
+    # ==========================================================
+    # --- LÓGICA DE MODIFICAÇÃO MOVIDA PARA CÁ ---
+    # Nota: No seu pedido você usou aspa simples (') e acento grave (`).
+    # Vou usar a aspa simples. Se quiser o outro, é só trocar.
+    nome_modificado = nome_do_cliente + " '"
+    print(f"ℹ️  Nome original: '{nome_do_cliente}' -> Modificado para: '{nome_modificado}'")
+    # --- FIM DA LÓGICA DE MODIFICAÇÃO ---
+    # ==========================================================
 
-    # Vamos tentar achar o que está na posição (40, 36, 1920, 1040)
-    custom_container = None
-    for custom in customs:
-        rect = custom.rectangle()
-        if rect.left == 40 and rect.top == 36 and rect.right == 1920 and rect.bottom == 1040:
-            custom_container = custom
-            print(f"✅ Achei o Custom container na posição {rect}")
-            break
-
-    if not custom_container:
-        print("❌ Não achei o Custom certo. Verifique as coordenadas.")
-        return
-
-    # Para trabalhar com UIAWrapper, use .children() + filtro
     try:
-        filhos = custom_container.children()
+        print(f"Procurando pelo rótulo do campo 'Nome'...")
+        
+        local_label = pyautogui.locateOnScreen(IMAGEM_LABEL_NOME, confidence=0.8)
+        
+        if local_label is None:
+            raise Exception(f"Não foi possível encontrar o RÓTULO '{IMAGEM_LABEL_NOME}' na tela.")
 
-        # Debug - listar os filhos para saber quem é quem
-        for i, filho in enumerate(filhos):
-            print(f"[{i}] {filho.control_type()} - {filho.element_info.name} - auto_id={filho.element_info.automation_id}")
-
-        # Procurar o ComboBox de PesquisaCliente
-        combo_pesquisa = None
-        for filho in filhos:
-            if (filho.control_type() == "ComboBox" and 
-                filho.element_info.automation_id == "PesquisaCliente"):
-                combo_pesquisa = filho
-                break
-
-        if not combo_pesquisa:
-            print("❌ Não achei o ComboBox de PesquisaCliente.")
-            return
-
-        combo_pesquisa.set_focus()
-        combo_pesquisa.click_input()
+        ponto_central_label = pyautogui.center(local_label)
+        
+        print(f"Rótulo encontrado! Clicando ao lado para inserir o nome modificado...")
+        pyautogui.click(ponto_central_label.x + OFFSET_X, ponto_central_label.y)
+        
         time.sleep(0.5)
 
-        # Dentro do ComboBox, pegar o Edit
-        filhos_combo = combo_pesquisa.children()
-        edit_nome = None
-        for filho in filhos_combo:
-            if filho.control_type() == "Edit" and filho.element_info.automation_id == "Text":
-                edit_nome = filho
-                break
+        # Usamos a variável com o nome já modificado
+        pyautogui.write(nome_modificado, interval=0.05)
 
-        if not edit_nome:
-            print("❌ Não achei o Edit interno do ComboBox.")
-            return
-
-        edit_nome.set_edit_text(nome_cliente)
-        print("✅ Nome preenchido com sucesso!")
+        print("✅ Campo 'nome' preenchido corretamente.")
 
     except Exception as e:
-        print(f"⚠️ Erro ao acessar campo nome: {e}")
-
-if __name__ == "__main__":
-    preencher_nome("JOÃO DA SILVA")
+        print(f"🚨 ERRO ao tentar preencher o campo 'nome'.")
+        raise e
