@@ -1,5 +1,3 @@
-# Arquivo: main.py (VERSÃO MODIFICADA PARA NÃO DELETAR O PDF)
-
 import os
 from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS
 from gerenciador_sftp import GerenciadorSFTP
