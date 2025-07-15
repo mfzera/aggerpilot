@@ -16,7 +16,7 @@ def buscar_cliente(nome_cliente):
         conn = psycopg2.connect(CAMINHO_DB)
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT cliente, produto, observacao, vigencia, situacao, status, vendedor
+            SELECT cliente, produto, observacao, vigencia, situacao, status, vendedor, pct_atual
             FROM registros_vendedor
             WHERE cliente = %s
         """, (nome_cliente,))
@@ -33,7 +33,8 @@ def buscar_cliente(nome_cliente):
                 "telefone": "0", # sempre deve ser 0
                 "situacao": resultado[4],
                 "status": resultado[5],
-                "vendedor": resultado[6]
+                "vendedor": resultado[6],
+                "pct_atual": resultado[7]
             }
         else:
             print(f"❌ Nenhum registro encontrado para o cliente '{nome_cliente}'.")
