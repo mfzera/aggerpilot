@@ -1,40 +1,26 @@
-# seu_projeto/preencher/item.py
-
+# seu_projeto/preencher/item.py (VERSÃO COM VALOR PADRÃO "0")
 import pyautogui
-import time
-
-# Garanta que você tem o screenshot 'label_item.png' na pasta 'imagens/'
-IMAGEM_LABEL_ITEM = 'imagens/label_item.png'
-# O campo item parece ser maior, talvez precise de um offset diferente.
-OFFSET_X = 150 
 
 def preencher(texto_do_item: str):
     """
-    Encontra o RÓTULO do campo Item e o preenche.
+    Preenche o campo Item. Se o valor do banco for vazio, usa "0" como padrão.
     """
+    
+    # Se o valor do banco for nulo ou vazio...
     if not texto_do_item:
-        print("AVISO: Texto do item não fornecido. Pulando.")
-        return
-        
+        print('AVISO: Texto do item não fornecido pelo banco. Usando valor padrão "0".')
+        # ...definimos "0" como o texto a ser escrito.
+        texto_para_escrever = "0"
+    else:
+        # Senão, usamos o valor que veio do banco.
+        texto_para_escrever = texto_do_item
+
+    # O resto da função continua igual, mas usando a variável 'texto_para_escrever'
     try:
-        print(f"Procurando pelo rótulo 'Item'...")
-        
-        local_label = pyautogui.locateOnScreen(IMAGEM_LABEL_ITEM, confidence=0.8)
-        
-        if local_label is None:
-            raise Exception(f"Não foi possível encontrar o RÓTULO '{IMAGEM_LABEL_ITEM}' na tela.")
-
-        ponto_central_label = pyautogui.center(local_label)
-        
-        print(f"Rótulo encontrado! Clicando ao lado para inserir '{texto_do_item}'...")
-        pyautogui.click(ponto_central_label.x + OFFSET_X, ponto_central_label.y)
-        
-        time.sleep(0.5)
-
-        pyautogui.write(texto_do_item, interval=0.05)
-
-        print("✅ Campo 'Item' preenchido.")
-
+        print(f"Digitando Item: '{texto_para_escrever}'...")
+        pyautogui.write(texto_para_escrever, interval=0.05)
+        print("✅ Item preenchido.")
     except Exception as e:
+        # Adicionado um 'try/except' para o caso de falha na digitação
         print(f"🚨 ERRO ao tentar preencher o campo 'Item'.")
         raise e
