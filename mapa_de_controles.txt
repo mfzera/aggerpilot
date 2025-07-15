@@ -1,0 +1,1331 @@
+Control Identifiers:
+
+Dialog - 'AGGER GESTOR'    (L0, T0, R1920, B1040)
+['AGGER GESTOR', 'AGGER GESTORDialog', 'Dialog']
+child_window(title="AGGER GESTOR", control_type="Window")
+   | 
+   | Image - ''    (L5, T2, R37, B34)
+   | ['Image', 'Image0', 'Image1']
+   | 
+   | Static - 'BEM VINDO, ECOTECH'    (L47, T0, R349, B20)
+   | ['BEM VINDO, ECOTECHStatic', 'Static', 'BEM VINDO, ECOTECH', 'Static0', 'Static1']
+   | child_window(title="BEM VINDO, ECOTECH", control_type="Text")
+   | 
+   | Static - 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0'    (L47, T20, R349, B34)
+   | ['Static2', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0Static']
+   | child_window(title="ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0", control_type="Text")
+   | 
+   | Separator - ''    (L369, T5, R370, B29)
+   | ['Separator', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0Separator', 'BEM VINDO, ECOTECHSeparator', 'Separator0', 'Separator1']
+   | 
+   | Static - 'VOCÊ ESTÁ EM:'    (L390, T7, R1201, B20)
+   | ['Static3', 'VOCÊ ESTÁ EM:', 'VOCÊ ESTÁ EM:Static']
+   | child_window(title="VOCÊ ESTÁ EM:", control_type="Text")
+   | 
+   | Static - 'PROSPECTAR'    (L390, T18, R1201, B34)
+   | ['PROSPECTARStatic', 'Static4', 'PROSPECTAR']
+   | child_window(title="PROSPECTAR", control_type="Text")
+   | 
+   | Button - ''    (L1216, T10, R1332, B26)
+   | ['VOCÊ ESTÁ EM:Button', 'Button', 'PROSPECTARButton', 'Button0', 'Button1']
+   |    | 
+   |    | Static - 'CARTÃO DE VISITA'    (L1242, T10, R1332, B26)
+   |    | ['CARTÃO DE VISITAStatic', 'Static5', 'CARTÃO DE VISITA']
+   |    | child_window(title="CARTÃO DE VISITA", control_type="Text")
+   | 
+   | Menu - ''    (L1348, T8, R1460, B28)
+   | ['Menu', 'CARTÃO DE VISITAMenu', 'Menu0', 'Menu1']
+   |    | 
+   |    | MenuItem - ''    (L1348, T-6, R1460, B42)
+   |    | ['CARTÃO DE VISITAMenuItem', 'MenuItem', 'MenuItem0', 'MenuItem1']
+   |    |    | 
+   |    |    | Static - '0'    (L0, T0, R0, B0)
+   |    |    | ['0Static', '0', 'Static6']
+   |    |    | child_window(title="0", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'NOTIFICAÇÕES'    (L1369, T11, R1444, B25)
+   |    |    | ['NOTIFICAÇÕES', 'Static7', 'NOTIFICAÇÕESStatic']
+   |    |    | child_window(title="NOTIFICAÇÕES", control_type="Text")
+   | 
+   | Button - ''    (L1466, T10, R1535, B26)
+   | ['Button2', 'NOTIFICAÇÕESButton']
+   |    | 
+   |    | Static - 'AGENDA'    (L1492, T10, R1535, B26)
+   |    | ['AGENDAStatic', 'AGENDA', 'Static8']
+   |    | child_window(title="AGENDA", control_type="Text")
+   | 
+   | Button - ''    (L1556, T10, R1667, B26)
+   | ['Button3', 'AGENDAButton', 'AGENDAButton0', 'AGENDAButton1']
+   |    | 
+   |    | Static - 'GESTOR MOBILE'    (L1587, T10, R1667, B26)
+   |    | ['Static9', 'GESTOR MOBILE', 'GESTOR MOBILEStatic']
+   |    | child_window(title="GESTOR MOBILE", control_type="Text")
+   | 
+   | Menu - ''    (L1683, T8, R1771, B28)
+   | ['GESTOR MOBILEMenu', 'Menu2']
+   |    | 
+   |    | MenuItem - ''    (L1683, T-6, R1771, B42)
+   |    | ['GESTOR MOBILEMenuItem', 'MenuItem2']
+   |    |    | 
+   |    |    | Static - 'AJUDA'    (L1720, T11, R1755, B25)
+   |    |    | ['AJUDAStatic', 'AJUDA', 'Static10', 'AJUDAStatic0', 'AJUDAStatic1', 'AJUDA0', 'AJUDA1']
+   |    |    | child_window(title="AJUDA", control_type="Text")
+   | 
+   | ComboBox - ''    (L40, T46, R214, B80)
+   | ['ComboBoxRecusados', 'ComboBoxTodos', 'ComboBoxVencidos', 'ComboBoxCancelados', 'ComboBox', 'VENDEDORComboBox', 'ComboBox0', 'ComboBox1', 'VENDEDORComboBox0', 'VENDEDORComboBox1']
+   | child_window(auto_id="Status", control_type="ComboBox")
+   |    | 
+   |    | Edit - ''    (L0, T0, R0, B0)
+   |    | ['Edit', 'Edit0', 'Edit1']
+   |    | child_window(auto_id="PART_EditableTextBox", control_type="Edit")
+   | 
+   | ComboBox - ''    (L219, T46, R386, B80)
+   | ['ComboBoxNomeDocumentos', 'ComboBox2', 'ComboBoxNome', 'STATUSComboBox', 'STATUSComboBox0', 'STATUSComboBox1']
+   | child_window(auto_id="FiltroClienteTipoBox", control_type="ComboBox")
+   |    | 
+   |    | Edit - ''    (L0, T0, R0, B0)
+   |    | ['Edit2']
+   |    | child_window(auto_id="PART_EditableTextBox", control_type="Edit")
+   | 
+   | ComboBox - ''    (L391, T46, R1407, B80)
+   | ['ComboBox3', 'PROSPECTARComboBox']
+   | child_window(auto_id="PesquisaCliente", control_type="ComboBox")
+   |    | 
+   |    | Edit - ''    (L391, T46, R1407, B80)
+   |    | ['Edit3', 'PROSPECTAREdit']
+   |    | child_window(auto_id="Text", control_type="Edit")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar', 'ScrollBar0', 'ScrollBar1']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar2']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Static - 'PESQUISAR CLIENTE POR NOME OU DOCUMENTOS OU NOME SOCIAL'    (L395, T55, R773, B71)
+   |    |    | ['PESQUISAR CLIENTE POR NOME OU DOCUMENTOS OU NOME SOCIAL', 'Static11', 'PESQUISAR CLIENTE POR NOME OU DOCUMENTOS OU NOME SOCIALStatic']
+   |    |    | child_window(title="PESQUISAR CLIENTE POR NOME OU DOCUMENTOS OU NOME SOCIAL", control_type="Text")
+   | 
+   | ComboBox - ''    (L0, T0, R0, B0)
+   | ['ComboBox4']
+   | child_window(auto_id="PesquisaClienteNome", control_type="ComboBox")
+   | 
+   | Custom - ''    (L0, T0, R0, B0)
+   | ['Custom', 'Custom0', 'Custom1']
+   | child_window(auto_id="LoadingAutoComplete", control_type="Custom")
+   | 
+   | Edit - ''    (L0, T0, R0, B0)
+   | ['Edit4']
+   | 
+   | Edit - ''    (L1412, T46, R1498, B80)
+   | ['Edit5', 'NOTIFICAÇÕESEdit']
+   | child_window(auto_id="DocumentoPrincipalBox", control_type="Edit")
+   |    | 
+   |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    | ['ScrollBar3']
+   |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    | 
+   |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    | ['ScrollBar4']
+   |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    | 
+   |    | Static - 'DOCUMENTO'    (L1418, T55, R1492, B70)
+   |    | ['DOCUMENTOStatic', 'Static12', 'DOCUMENTO', 'DOCUMENTO0', 'DOCUMENTO1', 'DOCUMENTOStatic0', 'DOCUMENTOStatic1']
+   |    | child_window(title="DOCUMENTO", control_type="Text")
+   | 
+   | Button - ''    (L1503, T48, R1528, B78)
+   | ['Button4', 'AGENDAButton2']
+   | child_window(auto_id="ObservacaoApolice", control_type="Button")
+   | 
+   | MenuItem - 'PESQUISA AVANÇADA'    (L1533, T47, R1693, B79)
+   | ['PESQUISA AVANÇADAMenuItem', 'PESQUISA AVANÇADA', 'MenuItem3', 'PESQUISA AVANÇADA0', 'PESQUISA AVANÇADA1']
+   | child_window(title="PESQUISA AVANÇADA", auto_id="PesquisaAvancada", control_type="MenuItem")
+   |    | 
+   |    | Static - 'PESQUISA AVANÇADA'    (L1567, T55, R1685, B71)
+   |    | ['PESQUISA AVANÇADA2', 'PESQUISA AVANÇADAStatic', 'Static13']
+   |    | child_window(title="PESQUISA AVANÇADA", control_type="Text")
+   | 
+   | MenuItem - 'VOLTAR'    (L0, T0, R0, B0)
+   | ['VOLTAR', 'MenuItem4', 'VOLTARMenuItem']
+   | child_window(title="VOLTAR", auto_id="Voltar", control_type="MenuItem")
+   | 
+   | ListBox - ''    (L0, T0, R0, B0)
+   | ['ListBox', 'ListBox0', 'ListBox1']
+   | 
+   | Separator - ''    (L0, T0, R0, B0)
+   | ['Separator2']
+   | 
+   | Custom - ''    (L40, T36, R1920, B1040)
+   | ['Custom2', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS | Gestor 7.92.0.0Custom']
+   |    | 
+   |    | Static - 'VENDEDOR'    (L45, T36, R113, B56)
+   |    | ['Static14', 'VENDEDORStatic', 'VENDEDOR', 'VENDEDORStatic0', 'VENDEDORStatic1', 'VENDEDOR0', 'VENDEDOR1']
+   |    | child_window(title="VENDEDOR", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'VENDEDOR'    (L45, T41, R108, B55)
+   |    |    | ['Static15', 'VENDEDORStatic2', 'VENDEDOR2']
+   |    |    | child_window(title="VENDEDOR", control_type="Text")
+   |    | 
+   |    | Edit - 'TODOS OS VENDEDORES'    (L0, T0, R0, B0)
+   |    | ['Edit6']
+   |    | child_window(title="TODOS OS VENDEDORES", control_type="Edit")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar5']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar6']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button5', 'rButton', 'r', 'rButton0', 'rButton1', 'r0', 'r1']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    | 
+   |    | ComboBox - ''    (L45, T56, R214, B82)
+   |    | ['ComboBoxGestor.Model.Domain.Seguros.Vendedor', 'ComboBox5', 'VENDEDORComboBox2']
+   |    |    | 
+   |    |    | Edit - ''    (L0, T0, R0, B0)
+   |    |    | ['Edit7']
+   |    |    | child_window(auto_id="PART_EditableTextBox", control_type="Edit")
+   |    | 
+   |    | Static - 'STATUS'    (L219, T36, R265, B56)
+   |    | ['Static16', 'STATUSStatic', 'STATUS', 'STATUSStatic0', 'STATUSStatic1', 'STATUS0', 'STATUS1']
+   |    | child_window(title="STATUS", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'STATUS'    (L219, T41, R260, B55)
+   |    |    | ['Static17', 'STATUSStatic2', 'STATUS2']
+   |    |    | child_window(title="STATUS", control_type="Text")
+   |    | 
+   |    | Edit - ''    (L0, T0, R0, B0)
+   |    | ['Edit8']
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar7']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar8']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button6', 'rButton2', 'r2']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    | 
+   |    | ComboBox - ''    (L219, T56, R369, B82)
+   |    | ['ComboBoxEM ANDAMENTO', 'ComboBox6', 'ComboBoxGANHO', 'ComboBoxAGENDADO', 'ComboBoxPERDIDO', 'STATUSComboBox2', 'ComboBoxNÃO TRABALHADO']
+   |    |    | 
+   |    |    | Edit - ''    (L0, T0, R0, B0)
+   |    |    | ['Edit9']
+   |    |    | child_window(auto_id="PART_EditableTextBox", control_type="Edit")
+   |    | 
+   |    | Static - 'INÍCIO'    (L374, T36, R415, B56)
+   |    | ['INÍCIO', 'INÍCIOStatic', 'Static18', 'INÍCIO0', 'INÍCIO1', 'INÍCIOStatic0', 'INÍCIOStatic1']
+   |    | child_window(title="INÍCIO", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'INÍCIO'    (L374, T41, R410, B55)
+   |    |    | ['INÍCIO2', 'INÍCIOStatic2', 'Static19']
+   |    |    | child_window(title="INÍCIO", control_type="Text")
+   |    | 
+   |    | Edit - '15/07/2025'    (L0, T0, R0, B0)
+   |    | ['Edit10']
+   |    | child_window(title="15/07/2025", control_type="Edit")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar9']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar10']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button7', 'rButton3', 'r3']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    | 
+   |    | Custom - ''    (L374, T56, R528, B82)
+   |    | ['Custom3', 'INÍCIOCustom']
+   |    | child_window(auto_id="InicioBox", control_type="Custom")
+   |    |    | 
+   |    |    | Edit - '15/07/2025'    (L375, T57, R505, B81)
+   |    |    | ['Edit11', 'INÍCIOEdit']
+   |    |    | child_window(title="15/07/2025", auto_id="PART_TextBox", control_type="Edit")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar11']
+   |    |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar12']
+   |    |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button8', 'rButton4', 'r4']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    |    | 
+   |    |    | Button - 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z'    (L505, T57, R527, B81)
+   |    |    | ['M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z', 'Button9', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5ZButton', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z0', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z1', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5ZButton0', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5ZButton1']
+   |    |    | child_window(title="M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z", auto_id="PART_Button", control_type="Button")
+   |    | 
+   |    | Static - 'FIM'    (L533, T36, R559, B56)
+   |    | ['Static20', 'FIM', 'FIMStatic', 'FIM0', 'FIM1', 'FIMStatic0', 'FIMStatic1']
+   |    | child_window(title="FIM", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'FIM'    (L533, T41, R554, B55)
+   |    |    | ['Static21', 'FIM2', 'FIMStatic2']
+   |    |    | child_window(title="FIM", control_type="Text")
+   |    | 
+   |    | Edit - '22/07/2025'    (L0, T0, R0, B0)
+   |    | ['Edit12']
+   |    | child_window(title="22/07/2025", control_type="Edit")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar13']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar14']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button10', 'rButton5', 'r5']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    | 
+   |    | Custom - ''    (L533, T56, R688, B82)
+   |    | ['Custom4', 'FIMCustom']
+   |    | child_window(auto_id="FimBox", control_type="Custom")
+   |    |    | 
+   |    |    | Edit - '22/07/2025'    (L534, T57, R665, B81)
+   |    |    | ['Edit13', 'FIMEdit']
+   |    |    | child_window(title="22/07/2025", auto_id="PART_TextBox", control_type="Edit")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar15']
+   |    |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar16']
+   |    |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button11', 'rButton6', 'r6']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    |    | 
+   |    |    | Button - 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z'    (L665, T57, R687, B81)
+   |    |    | ['M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z2', 'Button12', 'M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5ZButton2']
+   |    |    | child_window(title="M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z", auto_id="PART_Button", control_type="Button")
+   |    | 
+   |    | Static - 'FILTRAR PROSPECÇÃO'    (L693, T36, R821, B56)
+   |    | ['FILTRAR PROSPECÇÃO', 'Static22', 'FILTRAR PROSPECÇÃOStatic', 'FILTRAR PROSPECÇÃO0', 'FILTRAR PROSPECÇÃO1', 'FILTRAR PROSPECÇÃOStatic0', 'FILTRAR PROSPECÇÃOStatic1']
+   |    | child_window(title="FILTRAR PROSPECÇÃO", control_type="Text")
+   |    |    | 
+   |    |    | Static - 'FILTRAR PROSPECÇÃO'    (L693, T41, R816, B55)
+   |    |    | ['FILTRAR PROSPECÇÃO2', 'Static23', 'FILTRAR PROSPECÇÃOStatic2']
+   |    |    | child_window(title="FILTRAR PROSPECÇÃO", control_type="Text")
+   |    | 
+   |    | Edit - 'VANDERSON ALAION'    (L0, T0, R0, B0)
+   |    | ['Edit14']
+   |    | child_window(title="VANDERSON ALAION", control_type="Edit")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar17']
+   |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    | ['ScrollBar18']
+   |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    | 
+   |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    | ['Button13', 'rButton7', 'r7']
+   |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    | 
+   |    | ComboBox - ''    (L693, T56, R1528, B82)
+   |    | ['FILTRAR PROSPECÇÃOComboBox', 'ComboBox19/07/2025 00:00:00', 'ComboBox97403-8566', 'ComboBox7', 'ComboBoxvandoalaion@gmail.com', 'ComboBox309.512.118-03']
+   |    | child_window(auto_id="AutoCompleteFornecedor", control_type="ComboBox")
+   |    |    | 
+   |    |    | Edit - 'VANDERSON ALAION'    (L693, T56, R1528, B82)
+   |    |    | ['Edit15', 'FILTRAR PROSPECÇÃOEdit']
+   |    |    | child_window(title="VANDERSON ALAION", auto_id="Text", control_type="Edit")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar19']
+   |    |    |    | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   |    |    |    | 
+   |    |    |    | ScrollBar - ''    (L0, T0, R0, B0)
+   |    |    |    | ['ScrollBar20']
+   |    |    |    | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   |    |    |    | 
+   |    |    |    | Button - 'r'    (L0, T0, R0, B0)
+   |    |    |    | ['Button14', 'rButton8', 'r8']
+   |    |    |    | child_window(title="r", auto_id="PART_ClearText", control_type="Button")
+   |    |    | 
+   |    |    | ListItem - 'Gestor.Model.Domain.Seguros.Prospeccao'    (L0, T0, R0, B0)
+   |    |    | ['Gestor.Model.Domain.Seguros.Prospeccao', 'Gestor.Model.Domain.Seguros.ProspeccaoListItem', 'ListItem', 'Gestor.Model.Domain.Seguros.Prospeccao0', 'Gestor.Model.Domain.Seguros.Prospeccao1', 'ListItem0', 'ListItem1']
+   |    |    | child_window(title="Gestor.Model.Domain.Seguros.Prospeccao", control_type="ListItem")
+   |    |    |    | 
+   |    |    |    | Static - 'VANDERSON ALAION'    (L0, T0, R0, B0)
+   |    |    |    | ['VANDERSON ALAION', 'Static24', 'VANDERSON ALAIONStatic', 'VANDERSON ALAION0', 'VANDERSON ALAION1', 'VANDERSON ALAIONStatic0', 'VANDERSON ALAIONStatic1']
+   |    |    |    | child_window(title="VANDERSON ALAION", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'VANDERSON ALAION'    (L0, T0, R0, B0)
+   |    |    |    |    | ['VANDERSON ALAION2', 'Static25', 'VANDERSON ALAIONStatic2']
+   |    |    |    |    | child_window(title="VANDERSON ALAION", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - '309.512.118-03'    (L0, T0, R0, B0)
+   |    |    |    | ['309.512.118-03', '309.512.118-03Static', 'Static26', '309.512.118-030', '309.512.118-031', '309.512.118-03Static0', '309.512.118-03Static1']
+   |    |    |    | child_window(title="309.512.118-03", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '309.512.118-03'    (L0, T0, R0, B0)
+   |    |    |    |    | ['309.512.118-032', '309.512.118-03Static2', 'Static27']
+   |    |    |    |    | child_window(title="309.512.118-03", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - ''    (L0, T0, R0, B0)
+   |    |    |    | ['Static28']
+   |    |    |    | 
+   |    |    |    | Static - '97403-8566'    (L0, T0, R0, B0)
+   |    |    |    | ['97403-8566', 'Static29', '97403-8566Static', '97403-85660', '97403-85661', '97403-8566Static0', '97403-8566Static1']
+   |    |    |    | child_window(title="97403-8566", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '97403-8566'    (L0, T0, R0, B0)
+   |    |    |    |    | ['97403-85662', 'Static30', '97403-8566Static2']
+   |    |    |    |    | child_window(title="97403-8566", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - 'vandoalaion@gmail.com'    (L0, T0, R0, B0)
+   |    |    |    | ['vandoalaion@gmail.comStatic', 'Static31', 'vandoalaion@gmail.com', 'vandoalaion@gmail.comStatic0', 'vandoalaion@gmail.comStatic1', 'vandoalaion@gmail.com0', 'vandoalaion@gmail.com1']
+   |    |    |    | child_window(title="vandoalaion@gmail.com", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'vandoalaion@gmail.com'    (L0, T0, R0, B0)
+   |    |    |    |    | ['vandoalaion@gmail.comStatic2', 'Static32', 'vandoalaion@gmail.com2']
+   |    |    |    |    | child_window(title="vandoalaion@gmail.com", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - '19/07/2025 00:00:00'    (L0, T0, R0, B0)
+   |    |    |    | ['Static33', '19/07/2025 00:00:00', '19/07/2025 00:00:00Static']
+   |    |    |    | child_window(title="19/07/2025 00:00:00", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '19/07/2025'    (L0, T0, R0, B0)
+   |    |    |    |    | ['19/07/2025', '19/07/2025Static', 'Static34', '19/07/20250', '19/07/20251', '19/07/2025Static0', '19/07/2025Static1']
+   |    |    |    |    | child_window(title="19/07/2025", control_type="Text")
+   |    | 
+   |    | Menu - ''    (L1533, T36, R1920, B84)
+   |    | ['AGENDAMenu', 'Menu3']
+   |    |    | 
+   |    |    | MenuItem - 'IMPRIMIR'    (L1533, T36, R1634, B84)
+   |    |    | ['IMPRIMIR', 'IMPRIMIRMenuItem', 'MenuItem5', 'IMPRIMIR0', 'IMPRIMIR1']
+   |    |    | child_window(title="IMPRIMIR", control_type="MenuItem")
+   |    |    |    | 
+   |    |    |    | Static - 'IMPRIMIR'    (L1569, T53, R1624, B67)
+   |    |    |    | ['IMPRIMIRStatic', 'Static35', 'IMPRIMIR2', 'IMPRIMIRStatic0', 'IMPRIMIRStatic1']
+   |    |    |    | child_window(title="IMPRIMIR", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - 'IMPRIMIR'    (L1569, T53, R1624, B67)
+   |    |    |    | ['IMPRIMIRStatic2', 'Static36', 'IMPRIMIR3']
+   |    |    |    | child_window(title="IMPRIMIR", control_type="Text")
+   |    |    | 
+   |    |    | MenuItem - 'CRIAR PROSPECÇÃO'    (L1634, T36, R1795, B84)
+   |    |    | ['CRIAR PROSPECÇÃO', 'MenuItem6', 'CRIAR PROSPECÇÃOMenuItem', 'CRIAR PROSPECÇÃO0', 'CRIAR PROSPECÇÃO1']
+   |    |    | child_window(title="CRIAR PROSPECÇÃO", control_type="MenuItem")
+   |    |    |    | 
+   |    |    |    | Static - 'CRIAR PROSPECÇÃO'    (L1670, T53, R1785, B67)
+   |    |    |    | ['CRIAR PROSPECÇÃO2', 'Static37', 'CRIAR PROSPECÇÃOStatic', 'CRIAR PROSPECÇÃOStatic0', 'CRIAR PROSPECÇÃOStatic1']
+   |    |    |    | child_window(title="CRIAR PROSPECÇÃO", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - 'CRIAR PROSPECÇÃO'    (L1670, T53, R1785, B67)
+   |    |    |    | ['CRIAR PROSPECÇÃO3', 'Static38', 'CRIAR PROSPECÇÃOStatic2']
+   |    |    |    | child_window(title="CRIAR PROSPECÇÃO", control_type="Text")
+   |    |    | 
+   |    |    | MenuItem - 'MAIS OPÇÕES'    (L1795, T36, R1920, B84)
+   |    |    | ['MAIS OPÇÕES', 'MenuItem7', 'MAIS OPÇÕESMenuItem', 'MAIS OPÇÕES0', 'MAIS OPÇÕES1']
+   |    |    | child_window(title="MAIS OPÇÕES", auto_id="MaisOpcoesButton", control_type="MenuItem")
+   |    |    |    | 
+   |    |    |    | Static - 'MAIS OPÇÕES'    (L1831, T53, R1910, B67)
+   |    |    |    | ['MAIS OPÇÕESStatic', 'Static39', 'MAIS OPÇÕES2', 'MAIS OPÇÕESStatic0', 'MAIS OPÇÕESStatic1']
+   |    |    |    | child_window(title="MAIS OPÇÕES", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Static - 'MAIS OPÇÕES'    (L1831, T53, R1910, B67)
+   |    |    |    | ['MAIS OPÇÕESStatic2', 'Static40', 'MAIS OPÇÕES3']
+   |    |    |    | child_window(title="MAIS OPÇÕES", control_type="Text")
+   |    | 
+   |    | Separator - ''    (L40, T84, R1920, B85)
+   |    | ['Separator3', 'VENDEDORSeparator', 'MAIS OPÇÕESSeparator']
+   |    | 
+   |    | ListView - ''    (L40, T85, R1920, B1040)
+   |    | ['ListView', 'VENDEDORListView']
+   |    |    | 
+   |    |    | Header - ''    (L40, T85, R1920, B117)
+   |    |    | ['VENDEDORHeader', 'Header']
+   |    |    | child_window(auto_id="PART_ColumnHeadersPresenter", control_type="Header")
+   |    |    |    | 
+   |    |    |    | HeaderItem - ''    (L40, T85, R113, B117)
+   |    |    |    | ['VENDEDORHeaderItem', 'HeaderItem', 'HeaderItem0', 'HeaderItem1', 'VENDEDORHeaderItem0', 'VENDEDORHeaderItem1']
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['Thumb', 'Thumb0', 'Thumb1']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L105, T85, R113, B117)
+   |    |    |    |    | ['Thumb2', 'VENDEDORThumb', 'VENDEDORThumb0', 'VENDEDORThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'ID'    (L113, T85, R263, B117)
+   |    |    |    | ['IDHeaderItem', 'ID', 'HeaderItem2', 'ID0', 'ID1']
+   |    |    |    | child_window(title="ID", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'ID'    (L121, T93, R133, B109)
+   |    |    |    |    | ['IDStatic', 'Static41', 'ID2']
+   |    |    |    |    | child_window(title="ID", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L113, T85, R121, B117)
+   |    |    |    |    | ['Thumb3', 'VENDEDORThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L255, T85, R263, B117)
+   |    |    |    |    | ['Thumb4', 'STATUSThumb', 'STATUSThumb0', 'STATUSThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'NOME'    (L263, T85, R413, B117)
+   |    |    |    | ['NOMEHeaderItem', 'HeaderItem3', 'NOME', 'NOME0', 'NOME1']
+   |    |    |    | child_window(title="NOME", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'NOME'    (L271, T93, R307, B109)
+   |    |    |    |    | ['Static42', 'NOME2', 'NOMEStatic']
+   |    |    |    |    | child_window(title="NOME", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L263, T85, R271, B117)
+   |    |    |    |    | ['Thumb5', 'STATUSThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L405, T85, R413, B117)
+   |    |    |    |    | ['Thumb6', 'INÍCIOThumb', 'INÍCIOThumb0', 'INÍCIOThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'DOCUMENTO'    (L413, T85, R509, B117)
+   |    |    |    | ['DOCUMENTO2', 'HeaderItem4', 'DOCUMENTOHeaderItem']
+   |    |    |    | child_window(title="DOCUMENTO", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'DOCUMENTO'    (L421, T93, R496, B109)
+   |    |    |    |    | ['DOCUMENTOStatic2', 'Static43', 'DOCUMENTO3']
+   |    |    |    |    | child_window(title="DOCUMENTO", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L413, T85, R421, B117)
+   |    |    |    |    | ['Thumb7', 'INÍCIOThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L501, T85, R509, B117)
+   |    |    |    |    | ['Thumb8', 'DOCUMENTOThumb', 'DOCUMENTOThumb0', 'DOCUMENTOThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'DDD'    (L509, T85, R551, B117)
+   |    |    |    | ['DDD', 'DDDHeaderItem', 'HeaderItem5', 'DDD0', 'DDD1']
+   |    |    |    | child_window(title="DDD", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'DDD'    (L517, T93, R543, B109)
+   |    |    |    |    | ['DDD2', 'DDDStatic', 'Static44']
+   |    |    |    |    | child_window(title="DDD", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L509, T85, R517, B117)
+   |    |    |    |    | ['Thumb9', 'DOCUMENTOThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L543, T85, R551, B117)
+   |    |    |    |    | ['Thumb10', 'DDDThumb', 'DDDThumb0', 'DDDThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'FONE'    (L551, T85, R627, B117)
+   |    |    |    | ['FONE', 'FONEHeaderItem', 'HeaderItem6', 'FONE0', 'FONE1']
+   |    |    |    | child_window(title="FONE", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'FONE'    (L559, T93, R589, B109)
+   |    |    |    |    | ['FONE2', 'Static45', 'FONEStatic', 'FONEStatic0', 'FONEStatic1']
+   |    |    |    |    | child_window(title="FONE", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L551, T85, R559, B117)
+   |    |    |    |    | ['Thumb11', 'DDDThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L619, T85, R627, B117)
+   |    |    |    |    | ['Thumb12', 'FONEThumb', 'FONEThumb0', 'FONEThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'EMAIL'    (L627, T85, R789, B117)
+   |    |    |    | ['EMAIL', 'EMAILHeaderItem', 'HeaderItem7', 'EMAIL0', 'EMAIL1']
+   |    |    |    | child_window(title="EMAIL", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'EMAIL'    (L635, T93, R670, B109)
+   |    |    |    |    | ['EMAILStatic', 'EMAIL2', 'Static46']
+   |    |    |    |    | child_window(title="EMAIL", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L627, T85, R635, B117)
+   |    |    |    |    | ['Thumb13', 'FONEThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L781, T85, R789, B117)
+   |    |    |    |    | ['Thumb14', 'FILTRAR PROSPECÇÃOThumb', 'FILTRAR PROSPECÇÃOThumb0', 'FILTRAR PROSPECÇÃOThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'VENCIMENTO'    (L789, T85, R881, B117)
+   |    |    |    | ['VENCIMENTOHeaderItem', 'VENCIMENTO', 'HeaderItem8', 'VENCIMENTO0', 'VENCIMENTO1']
+   |    |    |    | child_window(title="VENCIMENTO", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'VENCIMENTO'    (L797, T93, R873, B109)
+   |    |    |    |    | ['Static47', 'VENCIMENTOStatic', 'VENCIMENTO2']
+   |    |    |    |    | child_window(title="VENCIMENTO", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L789, T85, R797, B117)
+   |    |    |    |    | ['Thumb15', 'FILTRAR PROSPECÇÃOThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L873, T85, R881, B117)
+   |    |    |    |    | ['Thumb16', 'VENCIMENTOThumb', 'VENCIMENTOThumb0', 'VENCIMENTOThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'ITEM'    (L881, T85, R1278, B117)
+   |    |    |    | ['ITEMHeaderItem', 'HeaderItem9', 'ITEM', 'ITEM0', 'ITEM1']
+   |    |    |    | child_window(title="ITEM", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'ITEM'    (L889, T93, R916, B109)
+   |    |    |    |    | ['ITEMStatic', 'Static48', 'ITEM2']
+   |    |    |    |    | child_window(title="ITEM", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L881, T85, R889, B117)
+   |    |    |    |    | ['Thumb17', 'VENCIMENTOThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1270, T85, R1278, B117)
+   |    |    |    |    | ['Thumb18', 'CARTÃO DE VISITAThumb', 'CARTÃO DE VISITAThumb0', 'CARTÃO DE VISITAThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'VALOR'    (L1278, T85, R1331, B117)
+   |    |    |    | ['VALORHeaderItem', 'HeaderItem10', 'VALOR', 'VALOR0', 'VALOR1']
+   |    |    |    | child_window(title="VALOR", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'VALOR'    (L1286, T93, R1323, B109)
+   |    |    |    |    | ['VALORStatic', 'Static49', 'VALOR2']
+   |    |    |    |    | child_window(title="VALOR", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1278, T85, R1286, B117)
+   |    |    |    |    | ['Thumb19', 'CARTÃO DE VISITAThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1323, T85, R1331, B117)
+   |    |    |    |    | ['Thumb20', 'VALORThumb', 'VALORThumb0', 'VALORThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'VENDEDOR'    (L1331, T85, R1636, B117)
+   |    |    |    | ['VENDEDORHeaderItem2', 'HeaderItem11', 'VENDEDOR3']
+   |    |    |    | child_window(title="VENDEDOR", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'VENDEDOR'    (L1339, T93, R1402, B109)
+   |    |    |    |    | ['Static50', 'VENDEDORStatic3', 'VENDEDOR4']
+   |    |    |    |    | child_window(title="VENDEDOR", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1331, T85, R1339, B117)
+   |    |    |    |    | ['Thumb21', 'VALORThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1628, T85, R1636, B117)
+   |    |    |    |    | ['Thumb22', 'IMPRIMIRThumb', 'IMPRIMIRThumb0', 'IMPRIMIRThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'TIPO'    (L1636, T85, R1750, B117)
+   |    |    |    | ['TIPOHeaderItem', 'HeaderItem12', 'TIPO', 'TIPO0', 'TIPO1']
+   |    |    |    | child_window(title="TIPO", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'TIPO'    (L1644, T93, R1671, B109)
+   |    |    |    |    | ['TIPOStatic', 'Static51', 'TIPO2']
+   |    |    |    |    | child_window(title="TIPO", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1636, T85, R1644, B117)
+   |    |    |    |    | ['Thumb23', 'IMPRIMIRThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1742, T85, R1750, B117)
+   |    |    |    |    | ['Thumb24', 'CRIAR PROSPECÇÃOThumb', 'CRIAR PROSPECÇÃOThumb0', 'CRIAR PROSPECÇÃOThumb1']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'STATUS'    (L1750, T85, R1827, B117)
+   |    |    |    | ['STATUSHeaderItem', 'STATUS3', 'HeaderItem13']
+   |    |    |    | child_window(title="STATUS", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'STATUS'    (L1758, T93, R1799, B109)
+   |    |    |    |    | ['Static52', 'STATUSStatic3', 'STATUS4']
+   |    |    |    |    | child_window(title="STATUS", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1750, T85, R1758, B117)
+   |    |    |    |    | ['Thumb25', 'CRIAR PROSPECÇÃOThumb2']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1819, T85, R1827, B117)
+   |    |    |    |    | ['Thumb26', 'STATUSThumb3']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | HeaderItem - 'STATUS PERSONALIZADO'    (L1827, T85, R1983, B117)
+   |    |    |    | ['STATUS PERSONALIZADO', 'HeaderItem14', 'STATUS PERSONALIZADOHeaderItem', 'STATUS PERSONALIZADO0', 'STATUS PERSONALIZADO1']
+   |    |    |    | child_window(title="STATUS PERSONALIZADO", control_type="HeaderItem")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'STATUS PERSONALIZADO'    (L1835, T93, R1975, B109)
+   |    |    |    |    | ['Static53', 'STATUS PERSONALIZADOStatic', 'STATUS PERSONALIZADO2']
+   |    |    |    |    | child_window(title="STATUS PERSONALIZADO", control_type="Text")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1827, T85, R1835, B117)
+   |    |    |    |    | ['Thumb27', 'MAIS OPÇÕESThumb']
+   |    |    |    |    | child_window(auto_id="PART_LeftHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L1975, T85, R1983, B117)
+   |    |    |    |    | ['Thumb28', 'STATUS PERSONALIZADOThumb']
+   |    |    |    |    | child_window(auto_id="PART_RightHeaderGripper", control_type="Thumb")
+   |    |    | 
+   |    |    | DataItem - 'Gestor.Model.Domain.Seguros.Prospeccao'    (L40, T118, R1983, B147)
+   |    |    | ['Gestor.Model.Domain.Seguros.ProspeccaoDataItem', 'DataItem', 'Gestor.Model.Domain.Seguros.Prospeccao2']
+   |    |    | child_window(title="Gestor.Model.Domain.Seguros.Prospeccao", control_type="DataItem")
+   |    |    |    | 
+   |    |    |    | HeaderItem - ''    (L0, T0, R0, B0)
+   |    |    |    | ['HeaderItem15']
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['Thumb29']
+   |    |    |    |    | child_window(auto_id="PART_TopHeaderGripper", control_type="Thumb")
+   |    |    |    |    | 
+   |    |    |    |    | Thumb - ''    (L40, T139, R64, B147)
+   |    |    |    |    | ['Thumb30', 'VENDEDORThumb3']
+   |    |    |    |    | child_window(auto_id="PART_BottomHeaderGripper", control_type="Thumb")
+   |    |    |    | 
+   |    |    |    | Custom - 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 0'    (L40, T118, R113, B147)
+   |    |    |    | ['Custom5', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 0Custom', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 0']
+   |    |    |    | child_window(title="Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 0", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L44, T122, R59, B142)
+   |    |    |    |    | ['Button15', 'VENDEDORButton', 'VENDEDORButton0', 'VENDEDORButton1']
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L69, T124, R89, B139)
+   |    |    |    |    | ['Button16', 'VENDEDORButton2']
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L89, T124, R109, B139)
+   |    |    |    |    | ['Button17', 'VENDEDORButton3']
+   |    |    |    | 
+   |    |    |    | Custom - '15984'    (L113, T118, R263, B147)
+   |    |    |    | ['Custom6', '15984Custom', '15984', '159840', '159841']
+   |    |    |    | child_window(title="15984", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '15984'    (L117, T123, R259, B141)
+   |    |    |    |    | ['15984Static', 'Static54', '159842']
+   |    |    |    |    | child_window(title="15984", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'VANDERSON ALAION'    (L263, T118, R413, B147)
+   |    |    |    | ['Custom7', 'VANDERSON ALAION3', 'VANDERSON ALAIONCustom']
+   |    |    |    | child_window(title="VANDERSON ALAION", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'VANDERSON ALAION'    (L267, T123, R409, B141)
+   |    |    |    |    | ['VANDERSON ALAION4', 'Static55', 'VANDERSON ALAIONStatic3']
+   |    |    |    |    | child_window(title="VANDERSON ALAION", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - '309.512.118-03'    (L413, T118, R509, B147)
+   |    |    |    | ['Custom8', '309.512.118-03Custom', '309.512.118-033']
+   |    |    |    | child_window(title="309.512.118-03", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '309.512.118-03'    (L417, T123, R505, B141)
+   |    |    |    |    | ['309.512.118-034', '309.512.118-03Static3', 'Static56']
+   |    |    |    |    | child_window(title="309.512.118-03", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 4'    (L509, T118, R551, B147)
+   |    |    |    | ['Custom9', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 4', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 4Custom']
+   |    |    |    | child_window(title="Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 4", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['Static57']
+   |    |    |    | 
+   |    |    |    | Custom - 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 5'    (L551, T118, R627, B147)
+   |    |    |    | ['Custom10', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 5', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 5Custom']
+   |    |    |    | child_window(title="Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 5", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - ''    (L555, T123, R623, B141)
+   |    |    |    |    | ['Static58', 'FONEStatic2']
+   |    |    |    | 
+   |    |    |    | Custom - 'vandoalaion@gmail.com'    (L627, T118, R789, B147)
+   |    |    |    | ['Custom11', 'vandoalaion@gmail.com3', 'vandoalaion@gmail.comCustom']
+   |    |    |    | child_window(title="vandoalaion@gmail.com", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'vandoalaion@gmail.com'    (L631, T123, R785, B141)
+   |    |    |    |    | ['vandoalaion@gmail.comStatic3', 'Static59', 'vandoalaion@gmail.com4']
+   |    |    |    |    | child_window(title="vandoalaion@gmail.com", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - '19/07/2025'    (L789, T118, R881, B147)
+   |    |    |    | ['Custom12', '19/07/20252', '19/07/2025Custom']
+   |    |    |    | child_window(title="19/07/2025", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - '19/07/2025'    (L802, T123, R868, B141)
+   |    |    |    |    | ['19/07/20253', '19/07/2025Static2', 'Static60']
+   |    |    |    |    | child_window(title="19/07/2025", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015'    (L881, T118, R1278, B147)
+   |    |    |    | ['Custom13', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015Custom', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/20150', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/20151']
+   |    |    |    | child_window(title="MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015'    (L885, T123, R1274, B141)
+   |    |    |    |    | ['MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015Static', 'Static61', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/20152']
+   |    |    |    |    | child_window(title="MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'R$ 0,00'    (L1278, T118, R1331, B147)
+   |    |    |    | ['Custom14', 'R$ 0,00', 'R$ 0,00Custom', 'R$ 0,000', 'R$ 0,001']
+   |    |    |    | child_window(title="R$ 0,00", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'R$ 0,00'    (L1282, T123, R1327, B141)
+   |    |    |    |    | ['R$ 0,002', 'Static62', 'R$ 0,00Static']
+   |    |    |    |    | child_window(title="R$ 0,00", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS'    (L1331, T118, R1636, B147)
+   |    |    |    | ['ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS', 'Custom15', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROSCustom', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS0', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS1']
+   |    |    |    | child_window(title="ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS'    (L1335, T123, R1632, B141)
+   |    |    |    |    | ['ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS2', 'Static63', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROSStatic', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROSStatic0', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROSStatic1']
+   |    |    |    |    | child_window(title="ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROS", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 11'    (L1636, T118, R1750, B147)
+   |    |    |    | ['Custom16', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 11Custom', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 11']
+   |    |    |    | child_window(title="Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 11", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - ''    (L1640, T123, R1746, B141)
+   |    |    |    |    | ['Static64', 'ECOSISTEMA GESTÃO E CORRETAGEM DE SEGUROSStatic2']
+   |    |    |    | 
+   |    |    |    | Custom - 'AGENDADO'    (L1750, T118, R1827, B147)
+   |    |    |    | ['Custom17', 'AGENDADO', 'AGENDADOCustom', 'AGENDADO0', 'AGENDADO1']
+   |    |    |    | child_window(title="AGENDADO", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - 'AGENDADO'    (L1754, T123, R1823, B141)
+   |    |    |    |    | ['AGENDADOStatic', 'Static65', 'AGENDADO2', 'AGENDADOStatic0', 'AGENDADOStatic1']
+   |    |    |    |    | child_window(title="AGENDADO", control_type="Text")
+   |    |    |    | 
+   |    |    |    | Custom - 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 13'    (L1827, T118, R1983, B147)
+   |    |    |    | ['Custom18', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 13', 'Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 13Custom']
+   |    |    |    | child_window(title="Item: Gestor.Model.Domain.Seguros.Prospeccao, Índice de Exibição de Coluna: 13", control_type="Custom")
+   |    |    |    |    | 
+   |    |    |    |    | Static - ''    (L1831, T123, R1979, B141)
+   |    |    |    |    | ['AGENDADOStatic2', 'Static66']
+   |    |    |    | 
+   |    |    |    | Custom - ''    (L0, T0, R0, B0)
+   |    |    |    | ['Custom19']
+   | 
+   | Button - ''    (L1902, T36, R1904, B38)
+   | ['Button18', 'AJUDAButton', 'AJUDAButton0', 'AJUDAButton1']
+   | child_window(auto_id="PART_Toggle", control_type="Button")
+   | 
+   | Button - ''    (L1780, T963, R1900, B1030)
+   | ['Button19', 'AJUDAButton2']
+   | child_window(auto_id="PART_Toggle", control_type="Button")
+   |    | 
+   |    | Button - ''    (L1781, T974, R1899, B1024)
+   |    | ['Button20', 'AJUDAButton3']
+   |    |    | 
+   |    |    | Progress - ''    (L0, T0, R0, B0)
+   |    |    | ['Progress', 'Progress0', 'Progress1']
+   |    |    | child_window(auto_id="ProgressBar", control_type="ProgressBar")
+   |    |    | 
+   |    |    | Static - 'AJUDA'    (L1828, T990, R1873, B1008)
+   |    |    | ['AJUDAStatic2', 'AJUDA2', 'Static67']
+   |    |    | child_window(title="AJUDA", control_type="Text")
+   |    | 
+   |    | Button - ''    (L1879, T1004, R1904, B1029)
+   |    | ['Button21', 'AJUDAButton4']
+   |    |    | 
+   |    |    | Progress - ''    (L0, T0, R0, B0)
+   |    |    | ['Progress2']
+   |    |    | child_window(auto_id="ProgressBar", control_type="ProgressBar")
+   | 
+   | Button - ''    (L0, T0, R0, B0)
+   | ['Button22']
+   | 
+   | Button - ''    (L0, T0, R0, B0)
+   | ['Button23']
+   | 
+   | Static - ''    (L0, T0, R0, B0)
+   | ['Static68']
+   | 
+   | Button - 'OK'    (L1853, T1040, R1920, B1087)
+   | ['Button24', 'OKButton', 'OK', 'OK0', 'OK1']
+   | child_window(title="OK", auto_id="PART_ActionButton", control_type="Button")
+   |    | 
+   |    | Static - 'OK'    (L1877, T1054, R1896, B1073)
+   |    | ['OKStatic', 'Static69', 'OK2']
+   |    | child_window(title="OK", control_type="Text")
+   | 
+   | Button - ''    (L5, T41, R35, B71)
+   | ['Button25']
+   | child_window(auto_id="menuIcon", control_type="Button")
+   | 
+   | ListBox - ''    (L0, T76, R40, B318)
+   | ['ListBox2']
+   | child_window(auto_id="ListBoxContent", control_type="List")
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T76, R40, B108)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem', 'ListItem2', 'Agger.Application.Menu.HamburgerMenuItemListItem', 'Agger.Application.Menu.HamburgerMenuItem0', 'Agger.Application.Menu.HamburgerMenuItem1', 'Agger.Application.Menu.HamburgerMenuItemListItem0', 'Agger.Application.Menu.HamburgerMenuItemListItem1']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="CentralDeNegociosMenu", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T76, R75, B108)
+   |    |    | ['Button26', 'VENDEDORButton4']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox3']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T108, R257, B128)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem2', 'ListItem3', 'Agger.Application.Menu.HamburgerMenuItemListItem2']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="DashBoard", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T108, R257, B128)
+   |    |    |    |    | ['Button27', 'VENDEDORButton5']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox4']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T128, R257, B148)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem3', 'ListItem4', 'Agger.Application.Menu.HamburgerMenuItemListItem3']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="PainelBi", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T128, R257, B148)
+   |    |    |    |    | ['Button28', 'VENDEDORButton6']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox5']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T148, R257, B168)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem4', 'ListItem5', 'Agger.Application.Menu.HamburgerMenuItemListItem4']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Prospeccao", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T148, R257, B168)
+   |    |    |    |    | ['Button29', '15984Button', '15984Button0', '15984Button1']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox6']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T108, R40, B143)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem5', 'ListItem6', 'Agger.Application.Menu.HamburgerMenuItemListItem5']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="SegurosMenu", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T108, R75, B143)
+   |    |    | ['Button30', 'VENDEDORButton7']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox7']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T143, R257, B163)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem6', 'ListItem7', 'Agger.Application.Menu.HamburgerMenuItemListItem6']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Consulta", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T143, R257, B163)
+   |    |    |    |    | ['Button31', '15984Button2']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox8']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T163, R257, B183)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem7', 'ListItem8', 'Agger.Application.Menu.HamburgerMenuItemListItem7']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Clientes", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T163, R257, B183)
+   |    |    |    |    | ['Button32', '15984Button3']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox9']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T183, R257, B203)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem8', 'ListItem9', 'Agger.Application.Menu.HamburgerMenuItemListItem8']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Apolices", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T183, R257, B203)
+   |    |    |    |    | ['Button33', '15984Button4']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox10']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T203, R257, B223)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem9', 'ListItem10', 'Agger.Application.Menu.HamburgerMenuItemListItem9']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Itens", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T203, R257, B223)
+   |    |    |    |    | ['Button34', '15984Button5']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox11']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T223, R257, B243)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem10', 'ListItem11', 'Agger.Application.Menu.HamburgerMenuItemListItem10']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Sinistros", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T223, R257, B243)
+   |    |    |    |    | ['Button35', '15984Button6']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox12']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T243, R257, B263)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem11', 'ListItem12', 'Agger.Application.Menu.HamburgerMenuItemListItem11']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="ImportPdf", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T243, R257, B263)
+   |    |    |    |    | ['Button36', '15984Button7']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox13']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T263, R257, B283)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem12', 'ListItem13', 'Agger.Application.Menu.HamburgerMenuItemListItem12']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="CriticaPdf", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T263, R257, B283)
+   |    |    |    |    | ['Button37', '15984Button8']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox14']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T283, R257, B303)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem13', 'ListItem14', 'Agger.Application.Menu.HamburgerMenuItemListItem13']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Comissao", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T283, R257, B303)
+   |    |    |    |    | ['Button38', '15984Button9']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox15']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T143, R40, B178)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem14', 'ListItem15', 'Agger.Application.Menu.HamburgerMenuItemListItem14']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="RelatoriosMenu", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T143, R75, B178)
+   |    |    | ['Button39', 'VENDEDORButton8']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox16']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T178, R40, B213)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem15', 'ListItem16', 'Agger.Application.Menu.HamburgerMenuItemListItem15']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Assinatura", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T178, R75, B213)
+   |    |    | ['Button40', 'VENDEDORButton9']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox17']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T213, R40, B248)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem16', 'ListItem17', 'Agger.Application.Menu.HamburgerMenuItemListItem16']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Aggilizador", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T213, R75, B248)
+   |    |    | ['Button41', 'VENDEDORButton10']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox18']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T0, R0, B0)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem17', 'ListItem18', 'Agger.Application.Menu.HamburgerMenuItemListItem17']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Epic", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T468, R75, B503)
+   |    |    | ['Button42', 'VENDEDORButton11']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox19']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T248, R40, B283)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem18', 'ListItem19', 'Agger.Application.Menu.HamburgerMenuItemListItem18']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="FinanceiroMenu", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T248, R75, B283)
+   |    |    | ['Button43', 'VENDEDORButton12']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox20']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T283, R257, B303)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem19', 'ListItem20', 'Agger.Application.Menu.HamburgerMenuItemListItem19']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Conta", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T283, R257, B303)
+   |    |    |    |    | ['Button44', '15984Button10']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox21']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T303, R257, B323)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem20', 'ListItem21', 'Agger.Application.Menu.HamburgerMenuItemListItem20']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Centro", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T303, R257, B323)
+   |    |    |    |    | ['Button45', '15984Button11']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox22']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T323, R257, B343)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem21', 'ListItem22', 'Agger.Application.Menu.HamburgerMenuItemListItem21']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Fornecedor", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T323, R257, B343)
+   |    |    |    |    | ['Button46', '15984Button12']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox23']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T343, R257, B363)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem22', 'ListItem23', 'Agger.Application.Menu.HamburgerMenuItemListItem22']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Plano", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T343, R257, B363)
+   |    |    |    |    | ['Button47', '15984Button13']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox24']
+   |    | 
+   |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L0, T283, R40, B318)
+   |    | ['Agger.Application.Menu.HamburgerMenuItem23', 'ListItem24', 'Agger.Application.Menu.HamburgerMenuItemListItem23']
+   |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="FerramentasMenu", control_type="ListItem")
+   |    |    | 
+   |    |    | Button - ''    (L0, T283, R75, B318)
+   |    |    | ['Button48', 'VENDEDORButton13']
+   |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    | 
+   |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    | ['ListBox25']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T318, R257, B338)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem24', 'ListItem25', 'Agger.Application.Menu.HamburgerMenuItemListItem24']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Emails", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T318, R257, B338)
+   |    |    |    |    | ['Button49', '15984Button14']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox26']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T338, R257, B358)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem25', 'ListItem26', 'Agger.Application.Menu.HamburgerMenuItemListItem25']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Empresa", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T338, R257, B358)
+   |    |    |    |    | ['Button50', '15984Button15']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox27']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T358, R257, B378)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem26', 'ListItem27', 'Agger.Application.Menu.HamburgerMenuItemListItem26']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Estipulantes", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T358, R257, B378)
+   |    |    |    |    | ['Button51', '15984Button16']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox28']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T378, R257, B398)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem27', 'ListItem28', 'Agger.Application.Menu.HamburgerMenuItemListItem27']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="ManutencaoPagamentos", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T378, R257, B398)
+   |    |    |    |    | ['Button52', '15984Button17']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox29']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T398, R257, B418)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem28', 'ListItem29', 'Agger.Application.Menu.HamburgerMenuItemListItem28']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="NotaFiscal", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T398, R257, B418)
+   |    |    |    |    | ['Button53', '15984Button18']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox30']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T418, R257, B438)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem29', 'ListItem30', 'Agger.Application.Menu.HamburgerMenuItemListItem29']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Parceiro", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T418, R257, B438)
+   |    |    |    |    | ['Button54', '15984Button19']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox31']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T438, R257, B458)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem30', 'ListItem31', 'Agger.Application.Menu.HamburgerMenuItemListItem30']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Produtos", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T438, R257, B458)
+   |    |    |    |    | ['Button55', '15984Button20']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox32']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T458, R257, B478)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem31', 'ListItem32', 'Agger.Application.Menu.HamburgerMenuItemListItem31']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T458, R257, B478)
+   |    |    |    |    | ['Button56', '15984Button21']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox33']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T478, R257, B498)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem32', 'ListItem33', 'Agger.Application.Menu.HamburgerMenuItemListItem32']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Qualificacao", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T478, R257, B498)
+   |    |    |    |    | ['Button57', '15984Button22']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox34']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T498, R257, B518)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem33', 'ListItem34', 'Agger.Application.Menu.HamburgerMenuItemListItem33']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Ramos", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T498, R257, B518)
+   |    |    |    |    | ['Button58', '15984Button23']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox35']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T518, R257, B538)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem34', 'ListItem35', 'Agger.Application.Menu.HamburgerMenuItemListItem34']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Recibo", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T518, R257, B538)
+   |    |    |    |    | ['Button59', '15984Button24']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox36']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T538, R257, B558)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem35', 'ListItem36', 'Agger.Application.Menu.HamburgerMenuItemListItem35']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Seguradoras", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T538, R257, B558)
+   |    |    |    |    | ['Button60', '15984Button25']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox37']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T558, R257, B578)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem36', 'ListItem37', 'Agger.Application.Menu.HamburgerMenuItemListItem36']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Socio", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T558, R257, B578)
+   |    |    |    |    | ['Button61', '15984Button26']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox38']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T578, R257, B598)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem37', 'ListItem38', 'Agger.Application.Menu.HamburgerMenuItemListItem37']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Statuses", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T578, R257, B598)
+   |    |    |    |    | ['Button62', '15984Button27']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox39']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T598, R257, B618)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem38', 'ListItem39', 'Agger.Application.Menu.HamburgerMenuItemListItem38']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="StatusProspeccao", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T598, R257, B618)
+   |    |    |    |    | ['Button63', '15984Button28']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox40']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T618, R257, B638)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem39', 'ListItem40', 'Agger.Application.Menu.HamburgerMenuItemListItem39']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="TipoTarefa", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T618, R257, B638)
+   |    |    |    |    | ['Button64', '15984Button29']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox41']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T638, R257, B658)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem40', 'ListItem41', 'Agger.Application.Menu.HamburgerMenuItemListItem40']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="TipoVendedor", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T638, R257, B658)
+   |    |    |    |    | ['Button65', '15984Button30']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox42']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T658, R257, B678)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem41', 'ListItem42', 'Agger.Application.Menu.HamburgerMenuItemListItem41']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Usuarios", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T658, R257, B678)
+   |    |    |    |    | ['Button66', '15984Button31']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox43']
+   |    |    |    | 
+   |    |    |    | ListItem - 'Agger.Application.Menu.HamburgerMenuItem'    (L35, T678, R257, B698)
+   |    |    |    | ['Agger.Application.Menu.HamburgerMenuItem42', 'ListItem43', 'Agger.Application.Menu.HamburgerMenuItemListItem42']
+   |    |    |    | child_window(title="Agger.Application.Menu.HamburgerMenuItem", auto_id="Vendedores", control_type="ListItem")
+   |    |    |    |    | 
+   |    |    |    |    | Button - ''    (L35, T678, R257, B698)
+   |    |    |    |    | ['Button67', '15984Button32']
+   |    |    |    |    | child_window(auto_id="ListBoxItemButton", control_type="Button")
+   |    |    |    |    | 
+   |    |    |    |    | ListBox - ''    (L0, T0, R0, B0)
+   |    |    |    |    | ['ListBox44']
+   | 
+   | ScrollBar - ''    (L0, T0, R0, B0)
+   | ['ScrollBar21']
+   | child_window(auto_id="VerticalScrollBar", control_type="ScrollBar")
+   | 
+   | ScrollBar - ''    (L0, T0, R0, B0)
+   | ['ScrollBar22']
+   | child_window(auto_id="HorizontalScrollBar", control_type="ScrollBar")
+   | 
+   | Image - ''    (L885, T445, R1035, B595)
+   | ['Image2', 'MITSUBISHI L200 TRITON HPE 3.2 CD TB INT.DIESEL AUT 2015/2015Image']
