@@ -1,76 +1,58 @@
+# Arquivo: copiar_propostas.py (VERSÃO MELHORADA PARA SER USADO COMO MÓDULO)
+
 import os
 from gerenciador_sftp import GerenciadorSFTP
-from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS
-
-# --- CONFIGURAÇÃO ---
-# Defina aqui a pasta no seu computador onde as propostas serão salvas.
-PASTA_LOCAL_DOWNLOADS = r"C:\Users\migue\Desktop\automação\propostas_vps"
+# --- MUDANÇA: Agora importa também o caminho local do config.py ---
+from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS, CAMINHO_LOCAL_PROPOSTAS
 
 def copiar_propostas_da_vps():
     """
     Automatiza o processo de baixar todas as propostas em PDF da VPS
-    para uma pasta local.
+    para a pasta local definida no config.py.
     """
-    print("--- INICIANDO AUTOMAÇÃO DE CÓPIA DE PROPOSTAS ---")
+    print("--- INICIANDO SINCRONIZAÇÃO DE PROPOSTAS DA VPS ---")
     
+    # --- MUDANÇA: Usa a variável do config.py em vez de uma local ---
+    pasta_local = CAMINHO_LOCAL_PROPOSTAS
+    if not pasta_local:
+        print("🚨 ERRO: CAMINHO_LOCAL_PROPOSTAS não está definido em seu config.py/.env.")
+        return False # Retorna False em caso de falha
+
     # Garante que a pasta de downloads local exista.
-    try:
-        if not os.path.exists(PASTA_LOCAL_DOWNLOADS):
-            os.makedirs(PASTA_LOCAL_DOWNLOADS)
-            print(f"✅ Pasta local '{PASTA_LOCAL_DOWNLOADS}' criada com sucesso.")
-    except Exception as e:
-        print(f"🚨 ERRO: Não foi possível criar a pasta local '{PASTA_LOCAL_DOWNLOADS}'. Detalhe: {e}")
-        return
-
-    # Valida se todas as chaves SSH necessárias existem na configuração
-    required_keys = ['hostname', 'port', 'username', 'password']
-    if not all(key in SSH_CONFIG and SSH_CONFIG[key] is not None for key in required_keys):
-        print("🚨 ERRO: A configuração SSH está incompleta. Verifique seu arquivo .env e config.py.")
-        print(f"   -> Chaves necessárias: {required_keys}")
-        print(f"   -> Chaves e valores encontrados: {SSH_CONFIG}")
-        return
-
-    # Instancia o gerenciador SFTP com as configurações
-    # CORREÇÃO: Passando o dicionário SSH_CONFIG diretamente, como a classe espera.
-    sftp_manager = GerenciadorSFTP(SSH_CONFIG)
+    if not os.path.exists(pasta_local):
+        os.makedirs(pasta_local)
+        print(f"✅ Pasta local '{pasta_local}' criada com sucesso.")
 
     try:
-        # Conecta ao servidor
-        # A conexão agora é feita dentro do __enter__ ou chamando sftp_manager.conectar()
-        sftp_manager.conectar()
+        # Usa 'with' para garantir que a conexão SFTP seja sempre fechada
+        with GerenciadorSFTP(SSH_CONFIG) as sftp:
+            print(f"🌐 Conectado ao VPS. Buscando arquivos em: {CAMINHO_REMOTO_PDFS}")
+            arquivos_pdf = sftp.listar_pdfs(CAMINHO_REMOTO_PDFS)
 
-        # Usa a variável CAMINHO_REMOTO_PDFS
-        caminho_remoto = CAMINHO_REMOTO_PDFS
-        if not caminho_remoto:
-            print("🚨 ERRO: O caminho remoto para os PDFs não está definido. Verifique a variável REMOTO_PDFS no seu arquivo .env.")
-            return
+            if not arquivos_pdf:
+                print("ℹ️ Nenhum arquivo PDF novo encontrado no servidor para baixar.")
+                return True # Não é um erro, apenas não há nada a fazer
 
-        # CORREÇÃO: Chamando o método correto 'listar_pdfs' da sua classe.
-        arquivos_pdf = sftp_manager.listar_pdfs(caminho_remoto)
+            print(f"✅ Encontrados {len(arquivos_pdf)} arquivos PDF para baixar.")
 
-        if not arquivos_pdf:
-            print(f"ℹ️ Nenhum arquivo PDF encontrado na pasta remota: {caminho_remoto}")
-            return
+            for nome_arquivo in arquivos_pdf:
+                caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_arquivo}"
+                caminho_local_completo = os.path.join(pasta_local, nome_arquivo)
+                
+                # Verifica se o arquivo já existe localmente para não baixá-lo de novo
+                if os.path.exists(caminho_local_completo):
+                    print(f"🔄 Arquivo '{nome_arquivo}' já existe localmente. Pulando.")
+                    continue
+                
+                print(f"⬇️  Baixando '{nome_arquivo}'...")
+                sftp.baixar_arquivo(caminho_remoto_completo, caminho_local_completo)
 
-        print(f"✅ Encontrados {len(arquivos_pdf)} arquivos PDF para baixar.")
-
-        # Baixa cada arquivo encontrado
-        for nome_arquivo in arquivos_pdf:
-            caminho_remoto_completo = f"{caminho_remoto}/{nome_arquivo}"
-            caminho_local_completo = os.path.join(PASTA_LOCAL_DOWNLOADS, nome_arquivo)
-            
-            print(f"\n⬇️  Baixando '{nome_arquivo}'...")
-            try:
-                sftp_manager.baixar_arquivo(caminho_remoto_completo, caminho_local_completo)
-            except Exception as e:
-                print(f"   -> 🚨 Falha ao baixar '{nome_arquivo}'. Detalhe: {e}")
-
+        print("--- SINCRONIZAÇÃO FINALIZADA COM SUCESSO ---")
+        return True # Retorna True em caso de sucesso
+    
     except Exception as e:
-        print(f"🚨 Ocorreu um erro inesperado durante a operação: {e}")
-    finally:
-        # Garante que a conexão seja sempre fechada
-        sftp_manager.desconectar()
-        print("\n--- AUTOMAÇÃO DE CÓPIA FINALIZADA ---")
+        print(f"🚨 Ocorreu um erro inesperado durante a sincronização: {e}")
+        return False # Retorna False em caso de falha
 
 
 if __name__ == "__main__":
