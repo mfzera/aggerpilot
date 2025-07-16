@@ -1,72 +1,80 @@
 import time
+import os
+import pyautogui
+import pyperclip
 from pywinauto import Application
 from pywinauto.findwindows import ElementNotFoundError
 from pywinauto.timings import TimeoutError
 
 APP_TITLE = "AGGER GESTOR"
 DIALOG_TITLE = "Abrir" # Título da janela de seleção de arquivo
+# A constante agora é global e pode ser importada por outros módulos.
+PASTA_PROPOSTAS_LOCAL = r"C:\Users\migue\Desktop\automação\propostas_vps"
 
-def anexar(caminho_completo_pdf: str) -> bool:
+def anexar(nome_arquivo_pdf: str) -> bool:
     """
     Automatiza o processo de anexar um arquivo PDF na tela de prospecção.
-
-    Esta função assume que a janela principal do Agger já está aberta e na
-    tela correta onde o botão "INCLUIR ANEXOS" está visível.
+    A função agora recebe apenas o nome do arquivo e o combina com a pasta local fixa.
 
     Args:
-        caminho_completo_pdf (str): O caminho absoluto para o arquivo PDF
-                                    que será anexado. Ex: "C:\\temp\\proposta.pdf"
+        nome_arquivo_pdf (str): O nome do arquivo (ex: "MIGUEL FERREIRA.pdf").
 
     Returns:
         bool: True se o anexo foi realizado com sucesso, False caso contrário.
     """
+    print("\n--- INICIANDO ANEXO DE PROPOSTA ---")
+    
+    caminho_completo_pdf = os.path.join(PASTA_PROPOSTAS_LOCAL, nome_arquivo_pdf)
+    
+    if not os.path.exists(caminho_completo_pdf):
+        print(f"🚨 ERRO: O arquivo para anexar não foi encontrado em: {caminho_completo_pdf}")
+        return False
+
     try:
-        print(f"\n--- INICIANDO ANEXO DE PROPOSTA ---")
-        print(f"[INFO] Anexando o arquivo: {caminho_completo_pdf}")
-
-        # 1. Conectar-se à aplicação principal
+        # 1. Conectar-se à aplicação e clicar no botão de anexo
+        print("[INFO] Conectando ao app AGGER GESTOR...")
         app = Application(backend="uia").connect(title=APP_TITLE, timeout=10)
-        dlg_principal = app.window(title=APP_TITLE)
-        dlg_principal.set_focus()
-
-        # 2. Clicar no botão para abrir a janela de anexo
-        # ATENÇÃO: O 'title' e 'control_type' podem precisar de ajuste.
-        print("[ACAO] Procurando e clicando em 'INCLUIR ANEXOS'...")
-        # Supondo que seja um botão. Se for um menu, o controle pode ser outro.
-        btn_incluir_anexos = dlg_principal.child_window(title="INCLUIR ANEXOS", control_type="Button")
-        if not btn_incluir_anexos.exists():
-            print("🚨 ERRO: Botão 'INCLUIR ANEXOS' não encontrado.")
-            return False
-        btn_incluir_anexos.click_input()
+        dlg = app.window(title=APP_TITLE)
+        dlg.set_focus()
         
-        # 3. Esperar e conectar-se à nova janela "Abrir"
-        print(f"[INFO] Aguardando a janela '{DIALOG_TITLE}' aparecer...")
-        try:
-            # Espera até 10 segundos pela janela de diálogo
-            dlg_abrir = app.window(title=DIALOG_TITLE, timeout=10)
-            dlg_abrir.wait('ready', timeout=10)
-            print(f"[SUCESSO] Janela '{DIALOG_TITLE}' encontrada.")
-        except TimeoutError:
-            print(f"🚨 ERRO: A janela '{DIALOG_TITLE}' não apareceu a tempo.")
-            return False
+        print("[ACAO] Procurando e clicando em 'INCLUIR ANEXOS'...")
+        anexar_button = dlg.child_window(title="INCLUIR ANEXOS", control_type="MenuItem")
+        anexar_button.wait('visible enabled', timeout=15)
+        anexar_button.click_input()
+        print("[SUCESSO] Clique em 'INCLUIR ANEXOS' realizado.")
 
-        # 4. Preencher o caminho do arquivo e confirmar
-        # O campo de nome do arquivo geralmente é um ComboBox ou Edit
-        print(f"[ACAO] Preenchendo o caminho do arquivo...")
-        # Usamos type_keys para digitar o caminho completo.
-        # 'with_spaces=True' garante que caminhos com espaços funcionem.
-        dlg_abrir.type_keys(caminho_completo_pdf, with_spaces=True)
-        time.sleep(1) # Pequena pausa para garantir que o texto foi digitado
+        # 2. Manipular a janela de seleção de arquivo com pyautogui
+        print("[INFO] Aguardando 2 segundos para a janela de seleção de arquivo aparecer...")
+        time.sleep(2)
 
-        print("[ACAO] Clicando no botão 'Abrir' para confirmar...")
-        btn_abrir = dlg_abrir.child_window(title="Abrir", control_type="Button")
-        btn_abrir.click_input()
+        print(f"[ACAO] Copiando o caminho da pasta para o clipboard: {PASTA_PROPOSTAS_LOCAL}")
+        pyperclip.copy(PASTA_PROPOSTAS_LOCAL)
+        
+        pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5)
+        pyautogui.hotkey('ctrl', 'v'); time.sleep(1)
+        pyautogui.press('enter'); time.sleep(1)
+
+        print(f"[ACAO] Digitando o nome do arquivo: {nome_arquivo_pdf}")
+        pyautogui.hotkey('alt', 'n'); time.sleep(0.5)
+        pyautogui.write(nome_arquivo_pdf, interval=0.05)
+        time.sleep(1)
+
+        # --- CORREÇÃO AQUI ---
+        # 3. Pressionar 'Enter' para confirmar a seleção do arquivo.
+        # Esta abordagem é mais direta e menos propensa a erros de foco
+        # do que tentar reconectar com pywinauto.
+        print("[ACAO] Pressionando 'Enter' para confirmar o anexo...")
+        pyautogui.press('enter')
+        
+        # Adiciona uma pausa para o diálogo fechar e o anexo ser processado.
+        print("[INFO] Aguardando 3 segundos para o anexo ser processado...")
+        time.sleep(3)
 
         print("✅ Anexo realizado com sucesso!")
         return True
 
-    except ElementNotFoundError:
-        print(f"🚨 ERRO FATAL: O aplicativo '{APP_TITLE}' não foi encontrado.")
+    except (ElementNotFoundError, TimeoutError) as e:
+        print(f"🚨 ERRO: Não foi possível encontrar o app ou um de seus elementos: {e}")
         return False
     except Exception as e:
         print(f"🚨 ERRO INESPERADO durante o processo de anexo: {e}")
