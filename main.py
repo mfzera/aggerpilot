@@ -1,15 +1,37 @@
-# Arquivo: main.py (VERSÃO COM PAUSA DE ESTABILIZAÇÃO)
+# Arquivo: main.py (VERSÃO FINAL COM LOG DE EXECUÇÃO)
 
 import os
 import glob
 import shutil
-import time # <-- MUDANÇA: Importa a biblioteca 'time'
+import time
+from datetime import datetime # <-- MUDANÇA: Importa a biblioteca de data e hora
 from config import CAMINHO_LOCAL_PROPOSTAS, SSH_CONFIG, CAMINHO_REMOTO_PDFS
 from gerenciador_sftp import GerenciadorSFTP
 from agger import conectar_e_abrir_prospeccao
 from banco import buscar_cliente
 from preencher.preencher import executar_preenchimento as preencher_todos
 from copiar_propostas import copiar_propostas_da_vps
+
+# --- NOVA FUNÇÃO DE LOG ---
+def registrar_log(nome_cliente, status, vendedor="N/A"):
+    """
+    Registra uma linha de log em um arquivo .txt.
+    """
+    # Formata a data e hora atuais
+    timestamp = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    
+    # Monta a linha de log no formato desejado
+    linha_log = f"{nome_cliente} - {status} - ({timestamp}) - ({vendedor})\n"
+    
+    try:
+        # Abre o arquivo em modo 'append' (a), que adiciona ao final sem apagar o conteúdo
+        # 'encoding="utf-8"' garante o suporte a caracteres especiais
+        with open("automacao_log.txt", "a", encoding="utf-8") as f:
+            f.write(linha_log)
+    except Exception as e:
+        print(f"🚨 Alerta: Falha ao escrever no arquivo de log. Erro: {e}")
+# --- FIM DA NOVA FUNÇÃO ---
+
 
 def processar_propostas_locais():
     # ... (o início da função continua igual) ...
@@ -29,22 +51,25 @@ def processar_propostas_locais():
 
     for caminho_local_completo in lista_de_pdfs:
         nome_do_pdf = os.path.basename(caminho_local_completo)
+        nome_base_cliente = os.path.splitext(nome_do_pdf)[0]
+        dados_cliente = None # Inicializa para garantir que a variável exista
+
         try:
             print(f"\n▶️  Processando o arquivo: {nome_do_pdf}")
-
             conectar_e_abrir_prospeccao()
 
-            nome_base_cliente = os.path.splitext(nome_do_pdf)[0]
             dados_cliente = buscar_cliente(nome_base_cliente)
 
             if not dados_cliente:
                 print(f"⚠️  Cliente '{nome_base_cliente}' não encontrado no banco de dados. Pulando para o próximo.")
-                continue # <-- Este 'continue' pula para a pausa no final do loop
+                registrar_log(nome_base_cliente, "CLIENTE NÃO ENCONTRADO NO BANCO") # <-- MUDANÇA
+                continue
 
             sucesso = preencher_todos(dados_cliente, nome_do_pdf)
             
             if sucesso:
                 print(f"✅ Automação para '{nome_do_pdf}' concluída com sucesso.")
+                registrar_log(nome_base_cliente, "SUCESSO", dados_cliente.get('vendedor', 'N/A')) # <-- MUDANÇA
                 
                 try:
                     destino_final = os.path.join(pasta_processados, nome_do_pdf)
@@ -67,18 +92,17 @@ def processar_propostas_locais():
             
             else:
                 print(f"❌ Automação para '{nome_do_pdf}' falhou.")
+                registrar_log(nome_base_cliente, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A')) # <-- MUDANÇA
 
         except Exception as e:
             print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_do_pdf}': {e}")
-            # Mesmo em caso de erro, o script continua e fará a pausa
+            vendedor = dados_cliente.get('vendedor', 'N/A') if dados_cliente else 'N/A'
+            registrar_log(nome_base_cliente, f"ERRO INESPERADO ({e})", vendedor) # <-- MUDANÇA
             
         finally:
-            # --- NOVA MUDANÇA ---
-            # Pausa de 3 segundos no final de CADA iteração para estabilizar a aplicação.
             print("---------------------------------------------------------")
             print("... Pausa de 3 segundos para estabilizar o AGGER ...")
             time.sleep(3) 
-            # --- FIM DA NOVA MUDANÇA ---
 
     print("\n🎉 Processamento de todos os arquivos concluído.")
 
