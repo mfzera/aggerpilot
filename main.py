@@ -1,72 +1,75 @@
-# Arquivo: main.py (VERSÃO CORRIGIDA PARA ANEXO SIMPLIFICADO)
+# Arquivo: main.py (VERSÃO FINAL PARA USAR ARQUIVOS LOCAIS)
 
 import os
-from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS
-from gerenciador_sftp import GerenciadorSFTP
+import glob
+import shutil
+from config import CAMINHO_LOCAL_PROPOSTAS # Importa a configuração da pasta local
 from agger import conectar_e_abrir_prospeccao
 from banco import buscar_cliente
-# A importação continua a mesma
-from preencher.preencher import executar_preenchimento as preencher_todos 
+from preencher.preencher import executar_preenchimento as preencher_todos
 
-def processar_proposta():
-    """Função principal que orquestra todo o processo."""
+def processar_propostas_locais():
+    """
+    Função principal que orquestra o processo lendo PDFs de uma pasta local.
+    """
     
-    # Usa 'with' para garantir que a conexão SFTP seja aberta e fechada automaticamente
-    with GerenciadorSFTP(SSH_CONFIG) as sftp:
-        
-        print(f"🔎 Buscando PDFs em: {CAMINHO_REMOTO_PDFS}")
-        pdfs_remotos = sftp.listar_pdfs(CAMINHO_REMOTO_PDFS)
+    # 1. DEFINIR PASTA DE PROCESSADOS
+    # Para manter tudo organizado, os PDFs processados com sucesso serão movidos para esta subpasta.
+    pasta_processados = os.path.join(CAMINHO_LOCAL_PROPOSTAS, "processados")
+    if not os.path.exists(pasta_processados):
+        print(f"📂 Criando pasta para arquivos processados em: {pasta_processados}")
+        os.makedirs(pasta_processados)
 
-        if not pdfs_remotos:
-            print("❌ Nenhum PDF encontrado no servidor.")
-            return
+    # 2. BUSCAR PDFs NA PASTA LOCAL
+    # Usamos glob para encontrar todos os arquivos que terminam com .pdf na pasta especificada.
+    print(f"🔎 Buscando PDFs na pasta local: {CAMINHO_LOCAL_PROPOSTAS}")
+    caminho_de_busca = os.path.join(CAMINHO_LOCAL_PROPOSTAS, "*.pdf")
+    lista_de_pdfs = glob.glob(caminho_de_busca)
 
-        primeiro_pdf = pdfs_remotos[0]
-        caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{primeiro_pdf}"
-        print(f"▶️ Processando o arquivo: {primeiro_pdf}")
+    if not lista_de_pdfs:
+        print("❌ Nenhum PDF encontrado na pasta local para processar.")
+        return
 
-        # O caminho local agora é definido dentro do módulo 'anexar'
-        # Mas ainda precisamos baixar o arquivo para algum lugar.
-        # Vamos usar a pasta de downloads definida em 'anexar.py'
-        # (Idealmente, essa pasta também estaria no config.py)
+    print(f"✅ {len(lista_de_pdfs)} PDF(s) encontrado(s). Iniciando processamento...")
+
+    # Abre a prospecção uma única vez antes de começar o loop
+    conectar_e_abrir_prospeccao()
+
+    # 3. PROCESSAR CADA PDF ENCONTRADO
+    # O 'for' loop vai passar por cada caminho de PDF encontrado.
+    for caminho_local_completo in lista_de_pdfs:
         try:
-            from preencher.anexar import PASTA_PROPOSTAS_LOCAL
-            caminho_local_completo = os.path.join(PASTA_PROPOSTAS_LOCAL, primeiro_pdf)
-        except ImportError:
-            print("🚨 ERRO: Não foi possível importar 'PASTA_PROPOSTAS_LOCAL' do módulo 'anexar.py'.")
-            print("   -> Verifique se o arquivo 'preencher/anexar.py' existe e contém a constante.")
-            return
+            nome_do_pdf = os.path.basename(caminho_local_completo)
+            print(f"\n▶️  Processando o arquivo: {nome_do_pdf}")
 
-
-        try:
-            sftp.baixar_arquivo(caminho_remoto_completo, caminho_local_completo)
+            # Extrai o nome do cliente do nome do arquivo (sem a extensão .pdf)
+            nome_base_cliente = os.path.splitext(nome_do_pdf)[0]
             
-            nome_base_cliente = os.path.splitext(primeiro_pdf)[0]
+            # Busca os dados do cliente no banco de dados
             dados_cliente = buscar_cliente(nome_base_cliente)
 
             if not dados_cliente:
-                return
+                print(f"⚠️  Cliente '{nome_base_cliente}' não encontrado no banco de dados. Pulando para o próximo.")
+                continue # Pula para o próximo PDF do loop
 
-            conectar_e_abrir_prospeccao()
-            
-            # A chamada agora passa o dicionário de dados E apenas o NOME do arquivo PDF
-            sucesso = preencher_todos(dados_cliente, primeiro_pdf)
+            # A função de preenchimento recebe os dados e o NOME do arquivo.
+            sucesso = preencher_todos(dados_cliente, nome_do_pdf)
             
             if sucesso:
-                print("✅ Automação (preenchimento e anexo) concluída com sucesso.")
-                # sftp.remover_arquivo_remoto(caminho_remoto_completo)
-                print(f"✅ Arquivo '{primeiro_pdf}' foi processado e MANTIDO no servidor.")
-
+                print(f"✅ Automação para '{nome_do_pdf}' concluída com sucesso.")
+                # Move o arquivo local para a pasta 'processados'
+                shutil.move(caminho_local_completo, pasta_processados)
+                print(f"✔️  Arquivo movido para: {pasta_processados}")
             else:
-                print("❌ Automação falhou. O arquivo não foi processado completamente.")
+                print(f"❌ Automação para '{nome_do_pdf}' falhou. O arquivo será mantido na pasta original.")
 
         except Exception as e:
-            print(f"🚨 Ocorreu um erro durante o processamento no main: {e}")
-        finally:
-            # Garante que o arquivo local seja sempre deletado
-            if 'caminho_local_completo' in locals() and os.path.exists(caminho_local_completo):
-                os.remove(caminho_local_completo)
-                print(f"🧹 Arquivo local '{caminho_local_completo}' removido.")
+            print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_do_pdf}': {e}")
+            # Continua para o próximo arquivo mesmo se um der erro
+            continue
+
+    print("\n🎉 Processamento de todos os arquivos concluído.")
+
 
 if __name__ == "__main__":
-    processar_proposta()
+    processar_propostas_locais()
