@@ -1,4 +1,4 @@
-# Arquivo: banco.py (VERSÃO COM BOAS PRÁTICAS)
+# Arquivo: banco.py (VERSÃO COM BUSCA ROBUSTA)
 
 import psycopg2
 from config import CAMINHO_DB
@@ -6,27 +6,28 @@ from config import CAMINHO_DB
 def buscar_cliente(nome_cliente):
     """
     Busca os dados de um cliente no banco de dados usando o nome fornecido.
-    A gestão da conexão foi melhorada com o uso de 'with'.
+    A busca agora ignora espaços extras e diferenças de maiúsculas/minúsculas.
     """
     if not nome_cliente:
         print("❌ Nome do cliente não fornecido para busca no banco.")
         return None
 
+    # --- MUDANÇA AQUI ---
+    # A query agora usa lower() e trim() para uma busca flexível.
     sql_query = """
         SELECT cliente, produto, observacao, vigencia, situacao, status, vendedor, pct_atual
         FROM registros_vendedor
-        WHERE cliente = %s
+        WHERE trim(lower(cliente)) = trim(lower(%s))
     """
     
     try:
         print(f"🔎 Buscando dados para o cliente '{nome_cliente}' no banco de dados...")
-        # O 'with' garante que a conexão e o cursor sejam fechados automaticamente
         with psycopg2.connect(CAMINHO_DB) as conn:
             with conn.cursor() as cursor:
+                # Passa o nome do cliente para a query
                 cursor.execute(sql_query, (nome_cliente,))
                 resultado = cursor.fetchone()
 
-        # O código a partir daqui permanece o mesmo
         if resultado:
             print("✅ Dados do cliente encontrados!")
             return {
@@ -34,7 +35,7 @@ def buscar_cliente(nome_cliente):
                 "item": resultado[1],
                 "observacao": resultado[2],
                 "vigencia": resultado[3],
-                "telefone": "0",  # sempre deve ser 0
+                "telefone": "0",
                 "situacao": resultado[4],
                 "status": resultado[5],
                 "vendedor": resultado[6],
