@@ -1,10 +1,10 @@
-# Arquivo: main.py (VERSÃO FINAL COM LOG DE EXECUÇÃO)
+# Arquivo: main.py (VERSÃO FINAL COMPLETA)
 
 import os
 import glob
 import shutil
 import time
-from datetime import datetime # <-- MUDANÇA: Importa a biblioteca de data e hora
+from datetime import datetime
 from config import CAMINHO_LOCAL_PROPOSTAS, SSH_CONFIG, CAMINHO_REMOTO_PDFS
 from gerenciador_sftp import GerenciadorSFTP
 from agger import conectar_e_abrir_prospeccao
@@ -12,7 +12,6 @@ from banco import buscar_cliente
 from preencher.preencher import executar_preenchimento as preencher_todos
 from copiar_propostas import copiar_propostas_da_vps
 
-# --- NOVA FUNÇÃO DE LOG ---
 def registrar_log(nome_cliente, status, vendedor="N/A"):
     """
     Registra uma linha de log em um arquivo .txt.
@@ -30,11 +29,19 @@ def registrar_log(nome_cliente, status, vendedor="N/A"):
             f.write(linha_log)
     except Exception as e:
         print(f"🚨 Alerta: Falha ao escrever no arquivo de log. Erro: {e}")
-# --- FIM DA NOVA FUNÇÃO ---
 
 
 def processar_propostas_locais():
-    # ... (o início da função continua igual) ...
+    """
+    Função principal que orquestra o processo lendo PDFs de uma pasta local,
+    processando-os e limpando os arquivos originais.
+    """
+    
+    # Adiciona uma pausa inicial para o usuário focar na janela do AGGER
+    print("Iniciando automação... Por favor, garanta que a janela do AGGER esteja no menu principal.")
+    print("A automação começará em 5 segundos...")
+    time.sleep(5)
+    
     pasta_processados = os.path.join(CAMINHO_LOCAL_PROPOSTAS, "processados")
     if not os.path.exists(pasta_processados):
         os.makedirs(pasta_processados)
@@ -62,14 +69,14 @@ def processar_propostas_locais():
 
             if not dados_cliente:
                 print(f"⚠️  Cliente '{nome_base_cliente}' não encontrado no banco de dados. Pulando para o próximo.")
-                registrar_log(nome_base_cliente, "CLIENTE NÃO ENCONTRADO NO BANCO") # <-- MUDANÇA
+                registrar_log(nome_base_cliente, "CLIENTE NÃO ENCONTRADO NO BANCO")
                 continue
 
             sucesso = preencher_todos(dados_cliente, nome_do_pdf)
             
             if sucesso:
                 print(f"✅ Automação para '{nome_do_pdf}' concluída com sucesso.")
-                registrar_log(nome_base_cliente, "SUCESSO", dados_cliente.get('vendedor', 'N/A')) # <-- MUDANÇA
+                registrar_log(nome_base_cliente, "SUCESSO", dados_cliente.get('vendedor', 'N/A'))
                 
                 try:
                     destino_final = os.path.join(pasta_processados, nome_do_pdf)
@@ -92,12 +99,12 @@ def processar_propostas_locais():
             
             else:
                 print(f"❌ Automação para '{nome_do_pdf}' falhou.")
-                registrar_log(nome_base_cliente, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A')) # <-- MUDANÇA
+                registrar_log(nome_base_cliente, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A'))
 
         except Exception as e:
             print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_do_pdf}': {e}")
             vendedor = dados_cliente.get('vendedor', 'N/A') if dados_cliente else 'N/A'
-            registrar_log(nome_base_cliente, f"ERRO INESPERADO ({e})", vendedor) # <-- MUDANÇA
+            registrar_log(nome_base_cliente, f"ERRO INESPERADO ({e})", vendedor)
             
         finally:
             print("---------------------------------------------------------")
