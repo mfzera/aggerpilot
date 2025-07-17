@@ -17,13 +17,15 @@ def preencher(dados_cliente: dict):
         situacao = dados_cliente.get('situacao', 'N/A')
         observacao_original = dados_cliente.get('observacao', 'N/A')
         
-        # --- LÓGICA DE FORMATAÇÃO DA COMISSÃO ---
-        comissao_decimal = dados_cliente.get('pct_atual')
+        # --- LÓGICA DE FORMATAÇÃO DA COMISSÃO (AJUSTADA) ---
+        # Renomeei a variável para maior clareza, já que não é mais um decimal
+        comissao_valor = dados_cliente.get('pct_atual')
         comissao_formatada = "N/A" # Valor padrão
         
-        if isinstance(comissao_decimal, (int, float)):
-            # Converte o decimal para porcentagem (ex: 0.22 -> 22%)
-            porcentagem = int(comissao_decimal * 100)
+        if isinstance(comissao_valor, (int, float)):
+            # MUDANÇA: Remove a multiplicação por 100.
+            # Trata o valor recebido como a porcentagem final.
+            porcentagem = int(comissao_valor)
             comissao_formatada = f"{porcentagem}%"
         
         # Monta o texto formatado com quebras de linha
