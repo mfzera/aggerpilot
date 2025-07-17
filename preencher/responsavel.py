@@ -1,3 +1,5 @@
+# Arquivo: preencher/responsavel.py (VERSÃO CORRIGIDA COM LÓGICA AJUSTADA)
+
 import time
 from pywinauto import Application
 from pywinauto.findwindows import ElementNotFoundError
@@ -10,7 +12,7 @@ def selecionar_responsavel(situacao: str) -> bool:
     na tela de prospecção, para selecionar o responsável.
 
     Args:
-        situacao (str): A situação do cadastro (ex: "CANCELADO", "ATIVO").
+        situacao (str): A situação do cadastro (ex: "PERDIDO", "ATIVO").
                         Determina qual responsável será selecionado.
 
     Returns:
@@ -18,11 +20,9 @@ def selecionar_responsavel(situacao: str) -> bool:
     """
     try:
         print(f"[INFO] Módulo Responsável: Conectando ao app '{APP_TITLE}'...")
-        # Conecta-se à aplicação que já está em execução
         app = Application(backend="uia").connect(title=APP_TITLE, timeout=10)
         dlg = app.window(title=APP_TITLE)
 
-        # Garante que a janela está pronta para receber inputs
         dlg.set_focus()
         dlg.wait("ready", timeout=10)
         
@@ -31,7 +31,7 @@ def selecionar_responsavel(situacao: str) -> bool:
         # --- PASSO 1: Clicar no ComboBox "Responsável" ---
         print("[ACAO] Procurando e clicando no ComboBox de 'Responsável'...")
         try:
-            # Tenta encontrar o ComboBox pelo índice. Este valor pode precisar de ajuste.
+            # Mantendo o método original por índice que funcionava para você.
             responsavel_combo = dlg.child_window(control_type="ComboBox", found_index=6)
 
             if responsavel_combo.exists():
@@ -49,11 +49,13 @@ def selecionar_responsavel(situacao: str) -> bool:
         print("\n[INFO] Aguardando 1 segundo para as opções aparecerem...")
         time.sleep(1)
 
-        # --- PASSO 3: Selecionar o responsável com base na condição ---
-        print(f"[INFO] A situação recebida é: '{situacao}'")
+        # --- PASSO 3: Selecionar o responsável com base na NOVA LÓGICA ---
+        situacao_limpa = situacao.lower().strip() if situacao else ""
+        print(f"[INFO] A situação recebida é: '{situacao_limpa}'")
 
         responsavel_nome = ""
-        if situacao and situacao.lower() == "cancelado":
+        # MUDANÇA: A lógica foi alterada conforme solicitado.
+        if situacao_limpa == "perdido":
             responsavel_nome = "MARIA JOSE"
         else:
             responsavel_nome = "BARBARA"
@@ -61,12 +63,10 @@ def selecionar_responsavel(situacao: str) -> bool:
         print(f"[ACAO] Procurando e selecionando o responsável: '{responsavel_nome}'...")
 
         try:
-            # A lista de opções aparece em uma nova janela/painel, então buscamos a partir do topo.
             app_top = app.top_window()
             item_text = app_top.child_window(title=responsavel_nome, control_type="Text", found_index=0)
 
             if item_text.exists():
-                # Pega o "pai" do texto, que é o ListItem clicável.
                 item_a_selecionar = item_text.parent()
                 item_a_selecionar.click_input()
                 print(f"[SUCESSO] Responsável '{responsavel_nome}' selecionado.")
