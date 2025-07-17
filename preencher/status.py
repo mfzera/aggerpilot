@@ -1,3 +1,5 @@
+# Arquivo: preencher/status.py (VERSÃO COM LÓGICA CORRIGIDA)
+
 import time
 from pywinauto import Application
 from pywinauto.findwindows import ElementNotFoundError
@@ -10,7 +12,7 @@ def selecionar(dados_cliente: dict) -> bool:
 
     Args:
         dados_cliente (dict): Dicionário contendo os dados do cliente.
-                              Espera-se as chaves 'situacao' e 'perdido'.
+                              Espera-se a chave 'situacao'.
 
     Returns:
         bool: True se o status foi selecionado com sucesso, False caso contrário.
@@ -25,23 +27,22 @@ def selecionar(dados_cliente: dict) -> bool:
         
         print("[INFO] Módulo Status: Janela principal focada.")
 
-        # --- PASSO 1: Determinar qual status selecionar ---
-        situacao = dados_cliente.get('situacao', '').lower()
-        perdido = dados_cliente.get('perdido', '').lower() # Supondo que 'perdido' virá dos dados
+        # --- PASSO 1: Determinar qual status selecionar (LÓGICA CORRIGIDA) ---
+        situacao = dados_cliente.get('situacao', '').lower().strip()
 
         status_nome = ""
-        if situacao == "cancelado" or perdido == "perdido":
+        # MUDANÇA: A condição agora verifica se a 'situacao' é 'cancelado' ou 'perdido'.
+        if situacao in ["cancelado", "perdido"]:
             status_nome = "PERDIDO"
         else:
             status_nome = "GANHO"
         
-        print(f"[INFO] Condição: situacao='{situacao}', perdido='{perdido}'. Status a ser selecionado: '{status_nome}'")
+        print(f"[INFO] Condição: situacao='{situacao}'. Status a ser selecionado: '{status_nome}'")
 
         # --- PASSO 2: Clicar no ComboBox "Status" ---
         print("[ACAO] Procurando e clicando no ComboBox de 'Status'...")
         try:
-            # ATENÇÃO: O índice 4 foi baseado no seu script.
-            # Verifique se esta é a posição correta do ComboBox 'Status'.
+            # Mantendo o método original por índice que funcionava para você.
             status_combo = dlg.child_window(control_type="ComboBox", found_index=4)
 
             if status_combo.exists():
