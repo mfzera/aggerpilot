@@ -1,0 +1,7 @@
+python-dotenv
+paramiko
+pywinauto[uia]
+pyautogui
+opencv-python
+pillow
+numpy
