@@ -15,7 +15,7 @@ def buscar_cliente(nome_cliente):
     # --- MUDANÇA AQUI ---
     # A query agora usa lower() e trim() para uma busca flexível.
     sql_query = """
-        SELECT cliente, produto, observacao, situacao, status, vendedor, pct_atual
+        SELECT cliente, produto, observacao, situacao, status, vendedor, pct_atual, salvo_por
         FROM registros_vendedor
         WHERE trim(lower(cliente)) = trim(lower(%s))
     """
@@ -38,7 +38,8 @@ def buscar_cliente(nome_cliente):
                 "situacao": resultado[3],
                 "status": resultado[4],
                 "vendedor": resultado[5],
-                "pct_atual": resultado[6]
+                "pct_atual": resultado[6],
+                "salvo_por": resultado[7],
             }
         else:
             print(f"❌ Nenhum registro encontrado para o cliente '{nome_cliente}'.")
