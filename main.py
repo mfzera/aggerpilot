@@ -1,4 +1,4 @@
-# Arquivo: main.py (VERSÃO FINAL COMPLETA)
+# Arquivo: main.py (VERSÃO FINAL COMPLETA E ATUALIZADA)
 
 import os
 import glob
@@ -34,10 +34,9 @@ def registrar_log(nome_cliente, status, vendedor="N/A"):
 def processar_propostas_locais():
     """
     Função principal que orquestra o processo lendo PDFs de uma pasta local,
-    processando-os e limpando os arquivos originais.
+    agrupando por cliente, processando cada cliente uma única vez e limpando os arquivos.
     """
     
-    # Adiciona uma pausa inicial para o usuário focar na janela do AGGER
     print("Iniciando automação... Por favor, garanta que a janela do AGGER esteja no menu principal.")
     print("A automação começará em 5 segundos...")
     time.sleep(5)
@@ -54,17 +53,31 @@ def processar_propostas_locais():
         print("❌ Nenhum PDF encontrado na pasta local para processar.")
         return
 
-    print(f"\n✅ {len(lista_de_pdfs)} PDF(s) encontrado(s). Iniciando processamento...")
+    # --- NOVA LÓGICA ---
+    # 1. Montar uma lista de clientes únicos a partir dos nomes dos arquivos.
+    # O uso de 'set' garante que não haverá nomes duplicados.
+    clientes_unicos = set()
+    for caminho_pdf in lista_de_pdfs:
+        nome_arquivo = os.path.basename(caminho_pdf)
+        # Remove a extensão .pdf
+        nome_base_cliente = os.path.splitext(nome_arquivo)[0]
+        # Uma forma simples de tratar "NOME 2", "NOME 3", etc.
+        partes = nome_base_cliente.rsplit(' ', 1)
+        if len(partes) > 1 and partes[1].isdigit():
+            nome_base_cliente = partes[0]
+        
+        clientes_unicos.add(nome_base_cliente.strip())
 
-    for caminho_local_completo in lista_de_pdfs:
-        nome_do_pdf = os.path.basename(caminho_local_completo)
-        nome_base_cliente = os.path.splitext(nome_do_pdf)[0]
+    print(f"\n✅ {len(lista_de_pdfs)} PDF(s) encontrado(s), correspondendo a {len(clientes_unicos)} cliente(s) único(s). Iniciando processamento...")
+
+    # 2. O loop principal agora é por cliente, não por arquivo.
+    for nome_base_cliente in clientes_unicos:
         dados_cliente = None # Inicializa para garantir que a variável exista
 
         try:
-            print(f"\n▶️  Processando o arquivo: {nome_do_pdf}")
-            conectar_e_abrir_prospeccao()
+            print(f"\n▶️  Processando o cliente: {nome_base_cliente}")
 
+            # Busca os dados do cliente UMA VEZ. A função já trará a lista de todos os anexos.
             dados_cliente = buscar_cliente(nome_base_cliente)
 
             if not dados_cliente:
@@ -72,37 +85,44 @@ def processar_propostas_locais():
                 registrar_log(nome_base_cliente, "CLIENTE NÃO ENCONTRADO NO BANCO")
                 continue
 
-            sucesso = preencher_todos(dados_cliente, nome_do_pdf)
+            # Conecta e abre a prospecção UMA VEZ por cliente.
+            conectar_e_abrir_prospeccao()
+            
+            # A função preencher_todos agora só precisa dos dados do cliente,
+            # pois a lista de anexos já está dentro de dados_cliente['anexos'].
+            # LEMBRE-SE DE AJUSTAR A FUNÇÃO preencher_todos EM SEU ARQUIVO ORIGINAL.
+            sucesso = preencher_todos(dados_cliente)
+            
+            # Encontra todos os arquivos PDF locais para este cliente para poder movê-los/removê-los
+            arquivos_do_cliente_local = glob.glob(os.path.join(CAMINHO_LOCAL_PROPOSTAS, f"{nome_base_cliente}*.pdf"))
             
             if sucesso:
-                print(f"✅ Automação para '{nome_do_pdf}' concluída com sucesso.")
+                print(f"✅ Automação para o cliente '{nome_base_cliente}' concluída com sucesso.")
                 registrar_log(nome_base_cliente, "SUCESSO", dados_cliente.get('vendedor', 'N/A'))
                 
-                try:
-                    destino_final = os.path.join(pasta_processados, nome_do_pdf)
-                    if os.path.exists(destino_final):
-                        print(f"⚠️  Arquivo '{nome_do_pdf}' já existia em 'processados'. O arquivo antigo será substituído.")
-                        os.remove(destino_final)
-                    shutil.move(caminho_local_completo, destino_final)
-                    print(f"✔️  Arquivo local movido para: {pasta_processados}")
-                except Exception as e:
-                    print(f"🚨 Falha ao mover o arquivo local '{nome_do_pdf}'. Erro: {e}")
+                # Move e remove todos os arquivos associados
+                for arquivo_local in arquivos_do_cliente_local:
+                    nome_do_pdf = os.path.basename(arquivo_local)
+                    try:
+                        destino_final = os.path.join(pasta_processados, nome_do_pdf)
+                        if os.path.exists(destino_final):
+                            os.remove(destino_final)
+                        shutil.move(arquivo_local, destino_final)
+                        print(f"✔️  Arquivo local movido: {nome_do_pdf}")
 
-                try:
-                    caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_do_pdf}"
-                    print(f"🌐 Conectando ao VPS para remover o arquivo '{nome_do_pdf}'...")
-                    with GerenciadorSFTP(SSH_CONFIG) as sftp:
-                        sftp.remover_arquivo_remoto(caminho_remoto_completo)
-                    print(f"✔️  Arquivo '{nome_do_pdf}' também foi removido do servidor VPS.")
-                except Exception as e:
-                    print(f"⚠️  AVISO: Falha ao remover '{nome_do_pdf}' do VPS. Erro: {e}")
+                        caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_do_pdf}"
+                        with GerenciadorSFTP(SSH_CONFIG) as sftp:
+                            sftp.remover_arquivo_remoto(caminho_remoto_completo)
+                        print(f"✔️  Arquivo removido do VPS: {nome_do_pdf}")
+                    except Exception as e:
+                        print(f"🚨 Falha ao mover/remover o arquivo '{nome_do_pdf}'. Erro: {e}")
             
             else:
-                print(f"❌ Automação para '{nome_do_pdf}' falhou.")
+                print(f"❌ Automação para o cliente '{nome_base_cliente}' falhou.")
                 registrar_log(nome_base_cliente, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A'))
 
         except Exception as e:
-            print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_do_pdf}': {e}")
+            print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_base_cliente}': {e}")
             vendedor = dados_cliente.get('vendedor', 'N/A') if dados_cliente else 'N/A'
             registrar_log(nome_base_cliente, f"ERRO INESPERADO ({e})", vendedor)
             
@@ -111,7 +131,7 @@ def processar_propostas_locais():
             print("... Pausa de 3 segundos para estabilizar o AGGER ...")
             time.sleep(3) 
 
-    print("\n🎉 Processamento de todos os arquivos concluído.")
+    print("\n🎉 Processamento de todos os clientes concluído.")
 
 
 if __name__ == "__main__":
