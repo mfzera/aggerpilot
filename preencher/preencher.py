@@ -1,8 +1,9 @@
-# seu_projeto/preencher/preencher.py (VERSÃO FINAL COM SALVAR)
+# Arquivo: preencher/preencher.py (VERSÃO FINAL ATUALIZADA)
+
 import pyautogui
 import time
+import os
 
-# Importa cada função diretamente de seu módulo
 from .nome import preencher as preencher_nome
 from .telefone import preencher as preencher_telefone
 from .item import preencher as preencher_item
@@ -13,19 +14,17 @@ from .criar_tarefa import selecionar as selecionar_criar_tarefa
 from .responsavel import selecionar_responsavel
 from .vendedor import selecionar as selecionar_vendedor
 from .status import selecionar as selecionar_status
-from .anexar import anexar as anexar_arquivo
-# --- NOVA IMPORTAÇÃO ---
+from .anexar import anexar as anexar_arquivos 
 from .salvar import salvar_prospeccao
 
-def executar_preenchimento(dados_cliente: dict, nome_arquivo_pdf: str) -> bool:
+def executar_preenchimento(dados_cliente: dict) -> bool:
     """
-    Orquestra o preenchimento, anexo e salvamento da prospecção.
+    Orquestra o preenchimento, anexo de múltiplos arquivos e salvamento da prospecção.
     """
     try:
         print("Iniciando o preenchimento final com a sequência mapeada...")
         time.sleep(2)
 
-        # --- ETAPA 1: PREENCHIMENTO COM PYAUTOGUI ---
         print("\n--- Etapa 1: Preenchendo campos com PyAutoGUI e 'Tab' ---")
         preencher_nome(dados_cliente.get('nome'))
         PAUSA_NAVEGACAO = 0.5
@@ -43,27 +42,29 @@ def executar_preenchimento(dados_cliente: dict, nome_arquivo_pdf: str) -> bool:
         selecionar_criar_tarefa()
         print("--- Etapa 1 concluída com sucesso! ---")
 
-        # --- ETAPA 2: SELEÇÃO DE RESPONSÁVEL ---
         print("\n--- Etapa 2: Selecionando Responsável com Pywinauto ---")
         if not selecionar_responsavel(dados_cliente.get('situacao')): return False
         print("--- Etapa 2 concluída com sucesso! ---")
         
-        # --- ETAPA 3: SELEÇÃO DE VENDEDOR ---
         print("\n--- Etapa 3: Selecionando Vendedor com Pywinauto ---")
         if not selecionar_vendedor(dados_cliente.get('situacao')): return False
         print("--- Etapa 3 concluída com sucesso! ---")
 
-        # --- ETAPA 4: SELEÇÃO DE STATUS ---
         print("\n--- Etapa 4: Selecionando Status com Pywinauto ---")
         if not selecionar_status(dados_cliente): return False
         print("--- Etapa 4 concluída com sucesso! ---")
 
-        # --- ETAPA 5: ANEXAR O PDF ---
-        print("\n--- Etapa 5: Anexando a proposta em PDF ---")
-        if not anexar_arquivo(nome_arquivo_pdf): return False
+        print("\n--- Etapa 5: Anexando a(s) proposta(s) em PDF ---")
+        lista_de_caminhos_completos = dados_cliente.get("anexos", [])
+        if not lista_de_caminhos_completos:
+            print("⚠️  Nenhum anexo encontrado no banco de dados para este cliente. Pulando etapa de anexo.")
+        else:
+            nomes_dos_arquivos_para_anexar = [os.path.basename(caminho) for caminho in lista_de_caminhos_completos]
+            if not anexar_arquivos(nomes_dos_arquivos_para_anexar):
+                print("🚨 Falha na etapa de anexo de arquivos.")
+                return False
         print("--- Etapa 5 concluída com sucesso! ---")
 
-        # --- NOVA ETAPA 6: SALVAR A PROSPECÇÃO ---
         print("\n--- Etapa 6: Salvando a prospecção ---")
         if not salvar_prospeccao():
             print("🚨 Falha na etapa de salvamento.")
@@ -72,7 +73,6 @@ def executar_preenchimento(dados_cliente: dict, nome_arquivo_pdf: str) -> bool:
 
         print("\n🎉🎉🎉 Processo completo finalizado com sucesso! 🎉🎉🎉")
         return True
-
     except Exception as e:
         print(f"🚨 ERRO: Falha durante a automação final.")
         print(f"   Detalhe do erro: {e}")
