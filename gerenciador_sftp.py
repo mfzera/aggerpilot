@@ -1,4 +1,4 @@
-# Arquivo: gerenciador_sftp.py (VERSÃO CORRIGIDA E FINAL)
+# Arquivo: gerenciador_sftp.py (VERSÃO ATUALIZADA PARA LISTAR TODOS OS ARQUIVOS)
 
 import paramiko
 import os
@@ -30,10 +30,22 @@ class GerenciadorSFTP:
             self.ssh_client.close()
         print("🔌 Conexões SFTP/SSH fechadas.")
 
-    def listar_pdfs(self, caminho_remoto):
-        """Lista todos os arquivos .pdf em um diretório remoto."""
-        arquivos = self.sftp_client.listdir(caminho_remoto)
-        return sorted([f for f in arquivos if f.lower().endswith(".pdf")])
+    def listar_arquivos(self, caminho_remoto):
+        """
+        Lista TODOS os arquivos em um diretório remoto.
+        """
+        print(f"🔎 Listando todos os arquivos em '{caminho_remoto}'...")
+        try:
+            # Pega a lista com TODOS os nomes de arquivos e pastas no diretório
+            todos_os_itens = self.sftp_client.listdir(caminho_remoto)
+            
+            print(f"✅ Encontrados {len(todos_os_itens)} item(ns).")
+            # Retorna a lista de todos os itens, ordenada alfabeticamente
+            return sorted(todos_os_itens)
+            
+        except Exception as e:
+            print(f"🚨 Erro ao listar arquivos no SFTP: {e}")
+            return [] # Retorna uma lista vazia em caso de erro
 
     def baixar_arquivo(self, caminho_remoto, caminho_local):
         """Baixa um arquivo do servidor remoto para o caminho local."""

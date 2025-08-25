@@ -1,22 +1,20 @@
-# Arquivo: copiar_propostas.py (VERSÃO MELHORADA PARA SER USADO COMO MÓDULO)
+# Arquivo: copiar_propostas.py (VERSÃO CORRIGIDA PARA BAIXAR TODOS OS ARQUIVOS)
 
 import os
 from gerenciador_sftp import GerenciadorSFTP
-# --- MUDANÇA: Agora importa também o caminho local do config.py ---
 from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS, CAMINHO_LOCAL_PROPOSTAS
 
 def copiar_propostas_da_vps():
     """
-    Automatiza o processo de baixar todas as propostas em PDF da VPS
+    Automatiza o processo de baixar TODOS os arquivos da VPS
     para a pasta local definida no config.py.
     """
     print("--- INICIANDO SINCRONIZAÇÃO DE PROPOSTAS DA VPS ---")
     
-    # --- MUDANÇA: Usa a variável do config.py em vez de uma local ---
     pasta_local = CAMINHO_LOCAL_PROPOSTAS
     if not pasta_local:
         print("🚨 ERRO: CAMINHO_LOCAL_PROPOSTAS não está definido em seu config.py/.env.")
-        return False # Retorna False em caso de falha
+        return False
 
     # Garante que a pasta de downloads local exista.
     if not os.path.exists(pasta_local):
@@ -27,15 +25,17 @@ def copiar_propostas_da_vps():
         # Usa 'with' para garantir que a conexão SFTP seja sempre fechada
         with GerenciadorSFTP(SSH_CONFIG) as sftp:
             print(f"🌐 Conectado ao VPS. Buscando arquivos em: {CAMINHO_REMOTO_PDFS}")
-            arquivos_pdf = sftp.listar_pdfs(CAMINHO_REMOTO_PDFS)
+            
+            # --- CORREÇÃO: Chama a função que lista TODOS os arquivos ---
+            arquivos_para_baixar = sftp.listar_arquivos(CAMINHO_REMOTO_PDFS)
 
-            if not arquivos_pdf:
-                print("ℹ️ Nenhum arquivo PDF novo encontrado no servidor para baixar.")
-                return True # Não é um erro, apenas não há nada a fazer
+            if not arquivos_para_baixar:
+                print("ℹ️ Nenhum arquivo novo encontrado no servidor para baixar.")
+                return True
 
-            print(f"✅ Encontrados {len(arquivos_pdf)} arquivos PDF para baixar.")
+            print(f"✅ Encontrados {len(arquivos_para_baixar)} arquivos para baixar.")
 
-            for nome_arquivo in arquivos_pdf:
+            for nome_arquivo in arquivos_para_baixar:
                 caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_arquivo}"
                 caminho_local_completo = os.path.join(pasta_local, nome_arquivo)
                 
@@ -47,12 +47,12 @@ def copiar_propostas_da_vps():
                 print(f"⬇️  Baixando '{nome_arquivo}'...")
                 sftp.baixar_arquivo(caminho_remoto_completo, caminho_local_completo)
 
-        print("--- SINCRONIZAÇÃO FINALIZADA COM SUCESSO ---")
-        return True # Retorna True em caso de sucesso
+        print("\n--- SINCRONIZAÇÃO FINALIZADA COM SUCESSO ---")
+        return True
     
     except Exception as e:
         print(f"🚨 Ocorreu um erro inesperado durante a sincronização: {e}")
-        return False # Retorna False em caso de falha
+        return False
 
 
 if __name__ == "__main__":
