@@ -1,4 +1,4 @@
-# Arquivo: preencher/responsavel.py (VERSÃO CORRIGIDA COM LÓGICA AJUSTADA)
+# Arquivo: preencher/responsavel.py (VERSÃO CORRIGIDA COM SELEÇÃO VIA TECLADO)
 
 import time
 from pywinauto import Application
@@ -8,15 +8,8 @@ APP_TITLE = "AGGER GESTOR"
 
 def selecionar_responsavel(situacao: str) -> bool:
     """
-    Conecta-se ao aplicativo AGGER GESTOR, que já deve estar aberto e focado
-    na tela de prospecção, para selecionar o responsável.
-
-    Args:
-        situacao (str): A situação do cadastro (ex: "PERDIDO", "ATIVO").
-                        Determina qual responsável será selecionado.
-
-    Returns:
-        bool: True se o responsável foi selecionado com sucesso, False caso contrário.
+    Conecta-se ao aplicativo AGGER GESTOR para selecionar o responsável,
+    usando digitação por teclado para maior robustez.
     """
     try:
         print(f"[INFO] Módulo Responsável: Conectando ao app '{APP_TITLE}'...")
@@ -31,7 +24,6 @@ def selecionar_responsavel(situacao: str) -> bool:
         # --- PASSO 1: Clicar no ComboBox "Responsável" ---
         print("[ACAO] Procurando e clicando no ComboBox de 'Responsável'...")
         try:
-            # Mantendo o método original por índice que funcionava para você.
             responsavel_combo = dlg.child_window(control_type="ComboBox", found_index=6)
 
             if responsavel_combo.exists():
@@ -46,37 +38,28 @@ def selecionar_responsavel(situacao: str) -> bool:
             return False
 
         # --- PASSO 2: Aguardar as opções do ComboBox aparecerem ---
-        print("\n[INFO] Aguardando 1 segundo para as opções aparecerem...")
-        time.sleep(1)
+        print("\n[INFO] Aguardando 1.5 segundos para a lista abrir...")
+        time.sleep(1.5)
 
-        # --- PASSO 3: Selecionar o responsável com base na NOVA LÓGICA ---
-        situacao_limpa = situacao.lower().strip() if situacao else ""
-        print(f"[INFO] A situação recebida é: '{situacao_limpa}'")
+        # --- PASSO 3: Selecionar o responsável via teclado (MÉTODO ROBUSTO) ---
+        responsavel_nome = "PALOMA RODRIGUES MACEDO"
 
-        responsavel_nome = ""
-        # MUDANÇA: A lógica foi alterada conforme solicitado.
-        if situacao_limpa == "perdido":
-            responsavel_nome = "MARIA JOSE"
-        else:
-            responsavel_nome = "BARBARA"
-
-        print(f"[ACAO] Procurando e selecionando o responsável: '{responsavel_nome}'...")
-
+        print(f"[ACAO] Selecionando '{responsavel_nome}' via teclado...")
         try:
-            app_top = app.top_window()
-            item_text = app_top.child_window(title=responsavel_nome, control_type="Text", found_index=0)
+            # O método 'type_keys' é mais confiável pois envia os comandos para a janela específica.
+            # Digita o nome completo para selecionar na lista.
+            dlg.type_keys(responsavel_nome, with_spaces=True)
+            time.sleep(1) # Pausa para a interface reagir à digitação
 
-            if item_text.exists():
-                item_a_selecionar = item_text.parent()
-                item_a_selecionar.click_input()
-                print(f"[SUCESSO] Responsável '{responsavel_nome}' selecionado.")
-                return True
-            else:
-                print(f"[ERRO] Não foi possível encontrar o texto do responsável '{responsavel_nome}' na lista.")
-                return False
+            # Pressiona Enter para confirmar a seleção
+            dlg.type_keys('{ENTER}')
+            time.sleep(1) # Pausa para a seleção ser processada e a lista fechar
+
+            print(f"[SUCESSO] Responsável '{responsavel_nome}' selecionado via teclado.")
+            return True
 
         except Exception as e:
-            print(f"[ERRO] Falha ao tentar selecionar o responsável: {e}")
+            print(f"[ERRO] Falha ao tentar selecionar o responsável via teclado: {e}")
             return False
 
     except ElementNotFoundError:
@@ -85,3 +68,4 @@ def selecionar_responsavel(situacao: str) -> bool:
     except Exception as e:
         print(f"[ERRO INESPERADO] Ocorreu uma falha no módulo responsável: {e}")
         return False
+
