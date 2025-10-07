@@ -51,6 +51,7 @@ def buscar_cliente(nome_cliente):
                 print(f"✅ {len(lista_de_anexos)} anexo(s) encontrado(s).")
 
                 return {
+                    "id": resultado_cliente[0], # <--- ADICIONADO o ID do registro aqui.
                     "nome": resultado_cliente[1],
                     "item": resultado_cliente[2],
                     "observacao": resultado_cliente[3],
