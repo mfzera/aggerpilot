@@ -248,7 +248,7 @@ def processar_propostas_locais():
             print("... Pausa de 3 segundos para estabilizar o AGGER ...")
             time.sleep(3) 
 
-    print("\n🎉 Processamento de todos os clientes concluído.")
+    print("\n🎉 Processamento de todos os clientes concluído.") 
 
 
 if __name__ == "__main__":
