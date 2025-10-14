@@ -1,4 +1,4 @@
-# Arquivo: preencher/anexar.py
+# Arquivo: preencher/anexar.py (VERSÃO CORRIGIDA COM COPIAR/COLAR)
 
 import time
 import os
@@ -7,7 +7,6 @@ import pyperclip
 from pywinauto import Application
 from pywinauto.findwindows import ElementNotFoundError
 from pywinauto.timings import TimeoutError
-# --- MELHORIA: Importa o caminho do config para evitar caminhos fixos no código ---
 from config import CAMINHO_LOCAL_PROPOSTAS
 
 APP_TITLE = "AGGER GESTOR"
@@ -55,10 +54,12 @@ def anexar(lista_nomes_arquivos: list[str]) -> bool:
             pyautogui.hotkey('ctrl', 'v'); time.sleep(1)
             pyautogui.press('enter'); time.sleep(1)
 
-            print(f"[ACAO] Digitando o nome do arquivo: {nome_arquivo}")
-            pyautogui.hotkey('alt', 'n'); time.sleep(0.5)
-            pyautogui.write(nome_arquivo, interval=0.05)
+            # --- CORREÇÃO PARA O 'Ç' E CARACTERES ESPECIAIS ---
+            print(f"[ACAO] Colando o nome do arquivo: {nome_arquivo}")
+            pyperclip.copy(nome_arquivo)  # Copia o nome do arquivo para a área de transferência
+            pyautogui.hotkey('ctrl', 'v')  # Cola o nome do arquivo no campo
             time.sleep(1)
+            # --- FIM DA CORREÇÃO ---
 
             print("[ACAO] Pressionando 'Enter' para confirmar o anexo...")
             pyautogui.press('enter')
