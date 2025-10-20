@@ -1,4 +1,4 @@
-# Arquivo: copiar_propostas.py (VERSÃO CORRIGIDA PARA RENOMEAR COM ID DURANTE O DOWNLOAD)
+# Arquivo: copiar_propostas.py (VERSÃO CORRIGIDA: IMPEDE ID DUPLICADO NO DOWNLOAD)
 
 import os
 import re
@@ -36,9 +36,15 @@ def copiar_propostas_da_vps():
             arquivos_baixados = 0
 
             for nome_arquivo_remoto in arquivos_remotos:
-                # Extrai o nome do cliente do nome do arquivo (sem extensão e sufixos numéricos)
+                # Extrai o nome base do arquivo (sem extensão)
                 nome_base_remoto = os.path.splitext(nome_arquivo_remoto)[0]
-                nome_cliente_para_busca = re.sub(r'\d+$', '', nome_base_remoto).strip()
+                
+                # 1. Remove o sufixo numérico (ex: ' 1', ' 2', que é a lógica anterior)
+                nome_sem_sufixo = re.sub(r'\d+$', '', nome_base_remoto).strip()
+                
+                # 2. Remove o ID prefixo (ex: '2231 ') antes da busca
+                # ESSA LIMPEZA É CRÍTICA para que o nome enviado ao banco esteja limpo.
+                nome_cliente_para_busca = re.sub(r'^\d+\s+', '', nome_sem_sufixo).strip() 
 
                 # Busca o cliente no banco de dados para obter o ID
                 print(f"--- \n🔎 Buscando ID para o cliente: '{nome_cliente_para_busca}'")
@@ -51,9 +57,17 @@ def copiar_propostas_da_vps():
                 client_id = dados_cliente['id']
                 print(f"✅ ID encontrado: {client_id}")
 
-                # Monta o novo nome do arquivo local com o ID
-                novo_nome_local = f"{client_id} {nome_arquivo_remoto}"
+                # --- CORREÇÃO DE RENOMEAÇÃO: Usa o nome LIMPO para a busca + ID do BD ---
+                # A variável 'nome_cliente_para_busca' é o nome limpo. 
+                # Agora, precisamos remontar o nome, incluindo o sufixo se existir (ex: ' 1.pdf').
                 
+                # Pega o nome do arquivo remoto, sem o ID da VPS
+                nome_sem_id_prefixo = re.sub(r'^\d+\s+', '', nome_arquivo_remoto).strip()
+                
+                # Adiciona o ID do banco (client_id) para criar um nome local padronizado.
+                novo_nome_local = f"{client_id} {nome_sem_id_prefixo}"
+                # -----------------------------------------------------------------------
+
                 caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_arquivo_remoto}"
                 caminho_local_completo = os.path.join(pasta_local, novo_nome_local)
                 
@@ -71,7 +85,3 @@ def copiar_propostas_da_vps():
     except Exception as e:
         print(f"🚨 Ocorreu um erro inesperado durante a sincronização: {e}")
         return False
-
-
-if __name__ == "__main__":
-    copiar_propostas_da_vps()

@@ -1,4 +1,4 @@
-# Arquivo: preencher/anexar.py (VERSÃO CORRIGIDA COM COPIAR/COLAR)
+# Arquivo: preencher/anexar.py (VERSÃO FINAL CORRIGIDA: FOCO DIRETO COM ALT+N)
 
 import time
 import os
@@ -45,21 +45,33 @@ def anexar(lista_nomes_arquivos: list[str]) -> bool:
             anexar_button.click_input()
             print("[SUCESSO] Clique em 'INCLUIR ANEXOS' realizado.")
 
-            print("[INFO] Aguardando 2 segundos para a janela de seleção de arquivo aparecer...")
-            time.sleep(2)
+            # --- PASSO 1: COLAR O CAMINHO DA PASTA (Foco Robusto) ---
+            print("[INFO] Aguardando 4 segundos para a janela de seleção de arquivo aparecer...")
+            time.sleep(4) 
 
-            print(f"[ACAO] Colando o caminho da pasta: {CAMINHO_LOCAL_PROPOSTAS}")
+            print(f"[ACAO] Navegando para a pasta: {CAMINHO_LOCAL_PROPOSTAS}")
             pyperclip.copy(CAMINHO_LOCAL_PROPOSTAS)
-            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5)
-            pyautogui.hotkey('ctrl', 'v'); time.sleep(1)
-            pyautogui.press('enter'); time.sleep(1)
 
-            # --- CORREÇÃO PARA O 'Ç' E CARACTERES ESPECIAIS ---
+            # Foca na barra de endereço (Ctrl+L) e cola o caminho
+            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5) 
+            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5) 
+            pyautogui.hotkey('ctrl', 'v'); time.sleep(1)
+            
+            # Pressiona Enter para abrir o diretório
+            pyautogui.press('enter'); time.sleep(1.5) 
+
+            # --- PASSO 2: Focar no campo "Nome:" usando Alt+N ---
+            print(f"[ACAO] Focando no campo 'Nome:' usando Alt+N para bypassar a Pesquisa...")
+            
+            # O ESC tira o foco do campo Pesquisar (vermelho) e o Alt+N força o foco no campo Nome (azul).
+            pyautogui.press('esc'); time.sleep(0.5)
+            pyautogui.hotkey('alt', 'n'); time.sleep(0.5) 
+            
+            # --- PASSO 3: Colar o nome do arquivo e confirmar ---
             print(f"[ACAO] Colando o nome do arquivo: {nome_arquivo}")
-            pyperclip.copy(nome_arquivo)  # Copia o nome do arquivo para a área de transferência
-            pyautogui.hotkey('ctrl', 'v')  # Cola o nome do arquivo no campo
+            pyperclip.copy(nome_arquivo) 
+            pyautogui.hotkey('ctrl', 'v')
             time.sleep(1)
-            # --- FIM DA CORREÇÃO ---
 
             print("[ACAO] Pressionando 'Enter' para confirmar o anexo...")
             pyautogui.press('enter')

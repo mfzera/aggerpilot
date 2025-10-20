@@ -1,4 +1,4 @@
-# Arquivo: main.py (CORRIGIDO PARA BUSCA DE CLIENTE COM ID NO NOME DO ARQUIVO)
+# Arquivo: main.py (CORRIGIDO PARA LIMPEZA ROBUSTA NA BUSCA LOCAL)
 
 import os
 import glob
@@ -42,19 +42,16 @@ def preparar_anexos_do_cliente(client_id: int, nome_base_cliente: str, arquivos_
     for caminho_arquivo in arquivos_originais:
         nome_base_original, extensao = os.path.splitext(caminho_arquivo)
         
-        # Remove a parte do nome base do cliente para isolar apenas o sufixo (ex: ' 1', '')
-        # Se o arquivo for "2109 BARRY ALLEN 1.pdf", e nome_base_cliente for "BARRY ALLEN",
-        # a substituição fará nome_base_original: "2109 BARRY ALLEN 1", sufixo_mantido: "2109 1"
-        # O nome_base_cliente deve ser o nome LIMPO do cliente (sem o ID), mas o caminho_arquivo pode ter o ID.
-        
         # É mais seguro buscar o nome base original do arquivo (sem extensão)
         nome_arquivo_sem_extensao = os.path.basename(nome_base_original)
         
-        # 1. Tenta remover o ID prefixo do nome do arquivo (se houver)
+        # 1. Tenta remover O(S) ID(s) prefixo do nome do arquivo (se houver)
         nome_sem_id_prefixo = nome_arquivo_sem_extensao
-        match_id_prefixo = re.match(r'^\d+\s+', nome_arquivo_sem_extensao)
-        if match_id_prefixo:
-            nome_sem_id_prefixo = nome_arquivo_sem_extensao[match_id_prefixo.end():]
+        # Aplica a remoção duas vezes para lidar com IDs duplicados (ex: '2466 2466 NOME')
+        for _ in range(2):
+            match_id_prefixo = re.match(r'^\d+\s+', nome_sem_id_prefixo)
+            if match_id_prefixo:
+                nome_sem_id_prefixo = nome_sem_id_prefixo[match_id_prefixo.end():]
         
         # 2. Isola o sufixo (ex: " 1" de "BARRY ALLEN 1")
         # Substitui a primeira ocorrência do nome base do cliente (limpo) no nome do arquivo (sem o ID prefixo).
@@ -151,12 +148,20 @@ def processar_propostas_locais():
         try:
             # --- CORREÇÃO APLICADA AQUI: LIMPA O NOME PARA A BUSCA NO BANCO ---
             nome_limpo_para_busca = nome_base_cliente_com_id
-            # Verifica se a string começa com dígitos seguidos de um ou mais espaços
-            match = re.match(r'^(\d+\s+)(.*)', nome_base_cliente_com_id)
+            
+            # Remove o primeiro ID prefixo (ID do BD ou ID da VPS)
+            match = re.match(r'^(\d+\s+)(.*)', nome_limpo_para_busca)
             if match:
                  # match.group(2) é a parte do nome após o ID e espaço
                  nome_limpo_para_busca = match.group(2).strip()
             
+            # Se houver duplicação de ID, limpa novamente.
+            match = re.match(r'^(\d+\s+)(.*)', nome_limpo_para_busca)
+            if match:
+                 # match.group(2) é a parte do nome após o ID e espaço
+                 nome_limpo_para_busca = match.group(2).strip()
+
+
             print(f"\n▶️  Processando o cliente: {nome_base_cliente_com_id} (Busca no BD por: {nome_limpo_para_busca})")
             
             # CHAMA A FUNÇÃO DE BUSCA COM O NOME LIMPO
@@ -233,7 +238,8 @@ def processar_propostas_locais():
                                     caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{arq_remoto}"
                                     sftp.remover_arquivo_remoto(caminho_remoto_completo)
                                     print(f"✔️  Arquivo removido do VPS: {arq_remoto}")
-                                    break
+                                    # REMOÇÃO DO 'break' AQUI para limpar todas as variações (PDF, JPG, etc.)
+                                    # O 'break' foi removido em correção anterior.
                     except Exception as e:
                         print(f"🚨 Falha ao mover/remover o arquivo '{nome_do_arquivo}'. Erro: {e}")
             else:
