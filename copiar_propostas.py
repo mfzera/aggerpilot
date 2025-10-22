@@ -1,31 +1,27 @@
-# Arquivo: copiar_propostas.py (VERSÃO CORRIGIDA: IMPEDE ID DUPLICADO NO DOWNLOAD)
+# Arquivo: copiar_propostas.py (VERSÃO SIMPLIFICADA)
 
 import os
-import re
 from gerenciador_sftp import GerenciadorSFTP
 from config import SSH_CONFIG, CAMINHO_REMOTO_PDFS, CAMINHO_LOCAL_PROPOSTAS
-from banco import buscar_cliente # IMPORTAR A FUNÇÃO DE BUSCA
 
 def copiar_propostas_da_vps():
     """
-    Baixa os arquivos da VPS, busca o ID do cliente no banco
-    e salva o arquivo localmente com o padrão 'ID NOME_CLIENTE.extensao'.
+    Baixa os arquivos da VPS que ainda não existem na pasta local,
+    mantendo o nome original do arquivo.
     """
     print("--- INICIANDO SINCRONIZAÇÃO DE PROPOSTAS DA VPS ---")
-    
-    pasta_local = CAMINHO_LOCAL_PROPOSTAS
-    if not pasta_local:
+
+    if not CAMINHO_LOCAL_PROPOSTAS:
         print("🚨 ERRO: CAMINHO_LOCAL_PROPOSTAS não está definido em seu config.py/.env.")
         return False
 
-    if not os.path.exists(pasta_local):
-        os.makedirs(pasta_local)
-        print(f"✅ Pasta local '{pasta_local}' criada com sucesso.")
+    if not os.path.exists(CAMINHO_LOCAL_PROPOSTAS):
+        os.makedirs(CAMINHO_LOCAL_PROPOSTAS)
+        print(f"✅ Pasta local '{CAMINHO_LOCAL_PROPOSTAS}' criada com sucesso.")
 
     try:
         with GerenciadorSFTP(SSH_CONFIG) as sftp:
             print(f"🌐 Conectado ao VPS. Buscando arquivos em: {CAMINHO_REMOTO_PDFS}")
-            
             arquivos_remotos = sftp.listar_arquivos(CAMINHO_REMOTO_PDFS)
 
             if not arquivos_remotos:
@@ -36,46 +32,14 @@ def copiar_propostas_da_vps():
             arquivos_baixados = 0
 
             for nome_arquivo_remoto in arquivos_remotos:
-                # Extrai o nome base do arquivo (sem extensão)
-                nome_base_remoto = os.path.splitext(nome_arquivo_remoto)[0]
-                
-                # 1. Remove o sufixo numérico (ex: ' 1', ' 2', que é a lógica anterior)
-                nome_sem_sufixo = re.sub(r'\d+$', '', nome_base_remoto).strip()
-                
-                # 2. Remove o ID prefixo (ex: '2231 ') antes da busca
-                # ESSA LIMPEZA É CRÍTICA para que o nome enviado ao banco esteja limpo.
-                nome_cliente_para_busca = re.sub(r'^\d+\s+', '', nome_sem_sufixo).strip() 
-
-                # Busca o cliente no banco de dados para obter o ID
-                print(f"--- \n🔎 Buscando ID para o cliente: '{nome_cliente_para_busca}'")
-                dados_cliente = buscar_cliente(nome_cliente_para_busca)
-
-                if not dados_cliente or 'id' not in dados_cliente:
-                    print(f"⚠️  Não foi possível encontrar o ID para '{nome_cliente_para_busca}'. Pulando o download deste arquivo.")
-                    continue
-                
-                client_id = dados_cliente['id']
-                print(f"✅ ID encontrado: {client_id}")
-
-                # --- CORREÇÃO DE RENOMEAÇÃO: Usa o nome LIMPO para a busca + ID do BD ---
-                # A variável 'nome_cliente_para_busca' é o nome limpo. 
-                # Agora, precisamos remontar o nome, incluindo o sufixo se existir (ex: ' 1.pdf').
-                
-                # Pega o nome do arquivo remoto, sem o ID da VPS
-                nome_sem_id_prefixo = re.sub(r'^\d+\s+', '', nome_arquivo_remoto).strip()
-                
-                # Adiciona o ID do banco (client_id) para criar um nome local padronizado.
-                novo_nome_local = f"{client_id} {nome_sem_id_prefixo}"
-                # -----------------------------------------------------------------------
-
                 caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_arquivo_remoto}"
-                caminho_local_completo = os.path.join(pasta_local, novo_nome_local)
-                
+                caminho_local_completo = os.path.join(CAMINHO_LOCAL_PROPOSTAS, nome_arquivo_remoto)
+
                 if os.path.exists(caminho_local_completo):
-                    print(f"🔄 Arquivo '{novo_nome_local}' já existe localmente. Pulando.")
+                    #print(f"🔄 Arquivo '{nome_arquivo_remoto}' já existe localmente. Pulando.")
                     continue
                 
-                print(f"⬇️  Baixando '{nome_arquivo_remoto}' como '{novo_nome_local}'...")
+                print(f"⬇️  Baixando '{nome_arquivo_remoto}'...")
                 sftp.baixar_arquivo(caminho_remoto_completo, caminho_local_completo)
                 arquivos_baixados += 1
 
