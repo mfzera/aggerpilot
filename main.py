@@ -1,4 +1,4 @@
-# Arquivo: main.py (CORRIGIDO PARA LIMPEZA ROBUSTA NA BUSCA LOCAL)
+# Arquivo: main.py (CORRIGIDO)
 
 import os
 import glob
