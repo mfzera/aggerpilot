@@ -1,4 +1,4 @@
-# Arquivo: main.py (VERSÃO COM NOVO FLUXO)
+# Arquivo: main.py (VERSÃO FINAL COM RENOMEAÇÃO PARA UNICIDADE, LIMPEZA E FLUXO CORRIGIDO)
 
 import os
 import glob
@@ -8,7 +8,9 @@ import re
 from datetime import datetime
 from typing import Tuple, Dict
 from PIL import Image
-from config import CAMINHO_LOCAL_PROPOSTAS
+# Importações necessárias para o fluxo de sincronização e exclusão remota
+from config import CAMINHO_LOCAL_PROPOSTAS, SSH_CONFIG, CAMINHO_REMOTO_PDFS
+from gerenciador_sftp import GerenciadorSFTP
 from agger import conectar_e_abrir_prospeccao
 from banco import buscar_cliente
 from preencher.preencher import executar_preenchimento as preencher_todos
@@ -25,41 +27,51 @@ def registrar_log(nome_cliente, status, vendedor="N/A"):
 
 def preparar_anexos_do_cliente(client_id: int, nome_base_cliente: str, arquivos_originais: list) -> Tuple[list, list]:
     """
-    Recebe uma lista de arquivos de um cliente, converte imagens para PDF
-    e retorna uma lista final de PDFs e uma lista de imagens originais para limpeza.
-    Os arquivos já devem estar no padrão 'ID NOME_CLIENTE...'.
+    Recebe uma lista de arquivos de um cliente, cria cópias renomeadas (adicionando a extensão
+    ao nome base para unicidade no Agger) e retorna as listas de caminhos.
+
+    Returns:
+        Tuple[list, list]:
+            - Lista de caminhos dos arquivos RENOMEADOS (para anexar).
+            - Lista de caminhos dos arquivos ORIGINAIS (para mover/deletar da VPS).
     """
-    pdfs_finais = []
-    imagens_originais = []
+    arquivos_para_anexar_renomeados = []
+    arquivos_para_mover_e_deletar_remotamente = [] 
+
+    VALID_EXTENSIONS = ['.pdf', '.jpg', '.jpeg', '.png', '.bmp', '.gif']
     
-    for caminho_arquivo in arquivos_originais:
-        nome_base_original, extensao = os.path.splitext(os.path.basename(caminho_arquivo))
+    for caminho_arquivo_original in arquivos_originais:
+        nome_arquivo_original = os.path.basename(caminho_arquivo_original)
+        nome_base, extensao = os.path.splitext(nome_arquivo_original)
         
-        # Se for PDF, já adiciona na lista final
-        if extensao.lower() == '.pdf':
-            pdfs_finais.append(caminho_arquivo)
-            continue
+        if extensao.lower() in VALID_EXTENSIONS:
+            
+            # 1. Cria o novo nome único: Adiciona a extensão (em maiúsculas) entre parênteses.
+            extensao_formatada = extensao.upper().replace('.', '')
+            novo_nome_arquivo = f"{nome_base} ({extensao_formatada}){extensao.lower()}"
+            # Cria a cópia renomeada na pasta LOCAL_PROPOSTAS
+            caminho_arquivo_renomeado = os.path.join(CAMINHO_LOCAL_PROPOSTAS, novo_nome_arquivo)
 
-        # Se for imagem, converte para PDF mantendo o nome base
-        if extensao.lower() in ['.jpg', '.jpeg', '.png', '.bmp', '.gif']:
-            imagens_originais.append(caminho_arquivo)
-            print(f"ℹ️  Imagem encontrada: '{os.path.basename(caminho_arquivo)}'. Convertendo para PDF...")
+            # 2. Copia/renomeia o arquivo
             try:
-                imagem = Image.open(caminho_arquivo)
-                if imagem.mode == 'RGBA':
-                    imagem = imagem.convert('RGB')
+                if os.path.exists(caminho_arquivo_renomeado):
+                    os.remove(caminho_arquivo_renomeado) # Garante que a cópia antiga seja apagada
                 
-                caminho_pdf_convertido = os.path.join(CAMINHO_LOCAL_PROPOSTAS, nome_base_original + ".pdf")
-                imagem.save(caminho_pdf_convertido, "PDF", resolution=100.0)
-                
-                pdfs_finais.append(caminho_pdf_convertido)
-                print(f"✅ Convertido para: '{os.path.basename(caminho_pdf_convertido)}'")
-            except Exception as e:
-                print(f"🚨 ERRO ao converter a imagem '{os.path.basename(caminho_arquivo)}': {e}")
-        else:
-            print(f"⚠️  Arquivo '{os.path.basename(caminho_arquivo)}' ignorado (não é PDF nem imagem suportada).")
+                # shutil.copy2 é usado para manter metadados e é mais robusto
+                shutil.copy2(caminho_arquivo_original, caminho_arquivo_renomeado)
+                print(f"ℹ️  Arquivo renomeado para anexar: '{novo_nome_arquivo}'")
 
-    return pdfs_finais, imagens_originais
+                arquivos_para_anexar_renomeados.append(caminho_arquivo_renomeado)
+                # O caminho ORIGINAL precisa ser movido para 'processados' e deletado da VPS
+                arquivos_para_mover_e_deletar_remotamente.append(caminho_arquivo_original)
+
+            except Exception as e:
+                print(f"🚨 ERRO ao renomear/copiar o arquivo '{nome_arquivo_original}': {e}")
+                continue 
+        else:
+            print(f"⚠️  Arquivo '{nome_arquivo_original}' ignorado (não é PDF nem imagem suportada).")
+
+    return arquivos_para_anexar_renomeados, arquivos_para_mover_e_deletar_remotamente
 
 def processar_propostas_locais():
     print("Iniciando automação... Por favor, garanta que a janela do AGGER esteja no menu principal.")
@@ -78,75 +90,119 @@ def processar_propostas_locais():
         print("❌ Nenhum arquivo encontrado na pasta local para processar.")
         return
 
-    # Mapeia clientes para agregá-los pelo nome base (sem ID e sufixos)
+    # Mapeia clientes para agregá-los pelo nome base (ID + NOME_CLIENTE)
     clientes_a_processar: Dict[str, list] = {}
     for caminho_arquivo in lista_de_arquivos:
         nome_arquivo = os.path.basename(caminho_arquivo)
         
-        # Extrai o nome do cliente do padrão "ID NOME ..."
-        match = re.match(r'^\d+\s+(.*?)(?:\s+\d+)?\..*$', nome_arquivo)
-        if match:
-            nome_cliente = match.group(1).strip()
-            if nome_cliente not in clientes_a_processar:
-                clientes_a_processar[nome_cliente] = []
-            clientes_a_processar[nome_cliente].append(caminho_arquivo)
-    
-    print(f"\n✅ {len(lista_de_arquivos)} arquivo(s) encontrado(s), correspondendo a {len(clientes_a_processar)} cliente(s) único(s). Iniciando processamento...")
+        # Extrai o ID (Grupo 1) e o NOME BASE (Grupo 2), ignorando o sufixo numérico opcional.
+        match = re.match(r'^(\d+)\s+(.*?)(?:[\s_]\d+)?\..*$', nome_arquivo)
 
-    for nome_base_cliente, arquivos_do_cliente in clientes_a_processar.items():
+        if match:
+            client_id = match.group(1).strip()
+            nome_cliente_base = match.group(2).strip()
+            
+            # A chave única de agrupamento é ID + Nome Base (Ex: '712 MIGUEL FERREIRA')
+            chave_unica = f"{client_id} {nome_cliente_base}" 
+            # O nome para a busca no banco é apenas o nome base
+            nome_cliente_para_busca = nome_cliente_base
+            
+            # Se a chave única (ID + Nome Base) não existe, cria a lista e armazena o nome para a busca no índice 0
+            if chave_unica not in clientes_a_processar:
+                clientes_a_processar[chave_unica] = [nome_cliente_para_busca]
+            
+            # Adiciona o caminho completo do arquivo à lista do grupo
+            clientes_a_processar[chave_unica].append(caminho_arquivo)
+    
+    print(f"\n✅ {len(lista_de_arquivos)} arquivo(s) encontrado(s), correspondendo a {len(clientes_a_processar)} cliente(s) único(s) (por ID+Nome Base). Iniciando processamento...")
+
+    # Itera sobre as chaves únicas (ID NOME_CLIENTE...)
+    for chave_unica, arquivos_do_grupo in clientes_a_processar.items():
+        # O nome do cliente para busca no banco está sempre na primeira posição
+        nome_base_cliente = arquivos_do_grupo[0]
+        arquivos_originais = arquivos_do_grupo[1:] # O resto são os caminhos dos arquivos
+        
+        # Extrai o ID do cliente da chave
+        client_id_str = chave_unica.split(" ", 1)[0]
+        client_id = int(client_id_str) if client_id_str.isdigit() else None
+
         dados_cliente = None
         try:
-            print(f"\n▶️  Processando o cliente: {nome_base_cliente}")
+            print(f"\n▶️  Processando o grupo: {chave_unica}")
             
-            # Busca os dados do cliente no banco
+            # Busca os dados do cliente no banco (usando APENAS o nome base)
             dados_cliente = buscar_cliente(nome_base_cliente)
 
             if not dados_cliente:
                 print(f"⚠️  Cliente '{nome_base_cliente}' não encontrado no banco de dados. Pulando.")
-                registrar_log(nome_base_cliente, "CLIENTE NÃO ENCONTRADO NO BANCO")
+                registrar_log(chave_unica, "CLIENTE NÃO ENCONTRADO NO BANCO")
                 continue
             
-            client_id = dados_cliente.get('id')
-            if not client_id:
+            if not dados_cliente.get('id'):
                 print(f"🚨 ERRO: ID do cliente '{nome_base_cliente}' não encontrado nos dados do banco. Pulando.")
-                registrar_log(nome_base_cliente, "ID DO CLIENTE AUSENTE NO BANCO")
+                registrar_log(chave_unica, "ID DO CLIENTE AUSENTE NO BANCO")
                 continue
 
-            # Prepara os anexos (basicamente converte imagens para PDF)
-            pdfs_para_anexar, imagens_para_limpar = preparar_anexos_do_cliente(
-                client_id, nome_base_cliente, arquivos_do_cliente
+            # Prepara os anexos (cria cópias renomeadas)
+            arquivos_para_anexar, arquivos_para_mover_e_deletar_remotamente = preparar_anexos_do_cliente(
+                client_id, nome_base_cliente, arquivos_originais
             )
             
-            if not pdfs_para_anexar:
-                print(f"❌ Nenhum arquivo PDF válido encontrado ou gerado para '{nome_base_cliente}'.")
-                registrar_log(nome_base_cliente, "NENHUM ANEXO VÁLIDO")
+            if not arquivos_para_anexar:
+                print(f"❌ Nenhum arquivo válido encontrado para '{chave_unica}'.")
+                registrar_log(chave_unica, "NENHUM ANEXO VÁLIDO")
                 continue
             
-            # Adiciona a lista de PDFs ao dicionário do cliente para o preenchimento
-            dados_cliente['anexos'] = pdfs_para_anexar
+            # Adiciona a lista de arquivos renomeados ao dicionário do cliente para o preenchimento
+            dados_cliente['anexos'] = arquivos_para_anexar
 
             conectar_e_abrir_prospeccao()
             sucesso = preencher_todos(dados_cliente)
             
             if sucesso:
-                print(f"✅ Automação para '{nome_base_cliente}' concluída com sucesso.")
-                registrar_log(nome_base_cliente, "SUCESSO", dados_cliente.get('vendedor', 'N/A'))
+                print(f"✅ Automação para '{chave_unica}' concluída com sucesso.")
+                registrar_log(chave_unica, "SUCESSO", dados_cliente.get('vendedor', 'N/A'))
                 
-                # Move todos os arquivos processados (PDFs e imagens originais)
-                arquivos_a_mover = pdfs_para_anexar + imagens_para_limpar
-                for arquivo_local in arquivos_a_mover:
-                    if not os.path.exists(arquivo_local): continue
+                # 1. Processa a movimentação local E a exclusão remota dos arquivos ORIGINAIS
+                for arquivo_local_original in arquivos_para_mover_e_deletar_remotamente:
+                    if not os.path.exists(arquivo_local_original): continue
+                    
+                    nome_do_arquivo_original = os.path.basename(arquivo_local_original)
+                    destino_final = os.path.join(pasta_processados, nome_do_arquivo_original)
+                    caminho_remoto_completo = f"{CAMINHO_REMOTO_PDFS}/{nome_do_arquivo_original}"
+
                     try:
-                        shutil.move(arquivo_local, pasta_processados)
+                        # Movimentação Local (Arquivos ORIGINAIS): Força a substituição
+                        if os.path.exists(destino_final):
+                            os.remove(destino_final)
+                        
+                        shutil.move(arquivo_local_original, destino_final)
+                        print(f"✔️  Arquivo original movido para 'processados': {nome_do_arquivo_original}")
+                        
+                        # Remoção da VPS
+                        with GerenciadorSFTP(SSH_CONFIG) as sftp:
+                            sftp.remover_arquivo_remoto(caminho_remoto_completo)
+                            print(f"✔️  Arquivo original removido do VPS: {nome_do_arquivo_original}")
+
                     except Exception as e:
-                        print(f"🚨 Falha ao mover o arquivo '{os.path.basename(arquivo_local)}'. Erro: {e}")
+                        print(f"🚨 Falha ao mover/remover o arquivo '{nome_do_arquivo_original}'. Erro: {e}")
+
+                # 2. Limpa os arquivos RENOMEADOS TEMPORÁRIOS
+                for arquivo_renomeado in arquivos_para_anexar:
+                    if os.path.exists(arquivo_renomeado):
+                        try:
+                            os.remove(arquivo_renomeado)
+                            print(f"🗑️  Arquivo temporário deletado: {os.path.basename(arquivo_renomeado)}")
+                        except Exception as e:
+                            print(f"🚨 Falha ao deletar arquivo temporário '{os.path.basename(arquivo_renomeado)}': {e}")
+
             else:
-                print(f"❌ Automação para '{nome_base_cliente}' falhou.")
-                registrar_log(nome_base_cliente, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A'))
+                print(f"❌ Automação para '{chave_unica}' falhou.")
+                registrar_log(chave_unica, "FALHA NO PREENCHIMENTO", dados_cliente.get('vendedor', 'N/A'))
         except Exception as e:
-            print(f"🚨 Ocorreu um erro inesperado ao processar '{nome_base_cliente}': {e}")
+            print(f"🚨 Ocorreu um erro inesperado ao processar '{chave_unica}': {e}")
             vendedor = dados_cliente.get('vendedor', 'N/A') if dados_cliente else 'N/A'
-            registrar_log(nome_base_cliente, f"ERRO INESPERADO ({e})", vendedor)
+            registrar_log(chave_unica, f"ERRO INESPERADO ({e})", vendedor)
         finally:
             print("---------------------------------------------------------")
             print("... Pausa de 3 segundos para estabilizar o AGGER ...")

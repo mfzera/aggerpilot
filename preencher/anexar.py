@@ -1,4 +1,4 @@
-# Arquivo: preencher/anexar.py (VERSÃO FINAL CORRIGIDA: FOCO DIRETO COM ALT+N)
+# Arquivo: preencher/anexar.py (VERSÃO FINAL CORRIGIDA: FOCO DIRETO COM ALT+N E LIMPEZA)
 
 import time
 import os
@@ -53,12 +53,11 @@ def anexar(lista_nomes_arquivos: list[str]) -> bool:
             pyperclip.copy(CAMINHO_LOCAL_PROPOSTAS)
 
             # Foca na barra de endereço (Ctrl+L) e cola o caminho
-            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5) 
-            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.5) 
-            pyautogui.hotkey('ctrl', 'v'); time.sleep(1)
+            pyautogui.hotkey('ctrl', 'l'); time.sleep(0.3) 
+            pyautogui.hotkey('ctrl', 'v'); time.sleep(0.5)
             
             # Pressiona Enter para abrir o diretório
-            pyautogui.press('enter'); time.sleep(1.5) 
+            pyautogui.press('enter'); time.sleep(1.0) 
 
             # --- PASSO 2: Focar no campo "Nome:" usando Alt+N ---
             print(f"[ACAO] Focando no campo 'Nome:' usando Alt+N para bypassar a Pesquisa...")
@@ -67,9 +66,14 @@ def anexar(lista_nomes_arquivos: list[str]) -> bool:
             pyautogui.press('esc'); time.sleep(0.5)
             pyautogui.hotkey('alt', 'n'); time.sleep(0.5) 
             
-            # --- PASSO 3: Colar o nome do arquivo e confirmar ---
+            # --- PASSO 3: Colar o nome do arquivo e confirmar (CORRIGIDO) ---
             print(f"[ACAO] Colando o nome do arquivo: {nome_arquivo}")
             pyperclip.copy(nome_arquivo) 
+            
+            # ADICIONADO: Forçar a limpeza do campo antes de colar
+            pyautogui.hotkey('ctrl', 'a'); time.sleep(0.1) # Seleciona todo o texto
+            pyautogui.press('delete'); time.sleep(0.1)     # Apaga o texto
+            
             pyautogui.hotkey('ctrl', 'v')
             time.sleep(1)
 
