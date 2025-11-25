@@ -1,4 +1,4 @@
-# Arquivo: banco.py (VERSÃO FINAL ATUALIZADA)
+# Arquivo: banco.py (VERSÃO COM DATA ESPECÍFICA DE PROSPECÇÃO)
 
 import psycopg2
 from config import CAMINHO_DB
@@ -68,3 +68,37 @@ def buscar_cliente(nome_cliente):
     except Exception as e:
         print(f"🚨 Erro ao conectar ou buscar no banco de dados: {e}")
         return None
+
+# --- NOVA FUNÇÃO: ATUALIZANDO 'data_prospectada' ---
+def atualizar_data_prospectada(registro_id: int) -> bool:
+    """
+    Atualiza a coluna data_prospectada do registro do cliente com o timestamp atual.
+    A atualização só deve ocorrer após o sucesso do processo no Agger.
+    """
+    if not registro_id:
+        print("❌ ID do registro não fornecido para atualização.")
+        return False
+
+    # Comando SQL alterado para a nova coluna!
+    sql_update = """
+        UPDATE registros_vendedor
+        SET data_prospectada = NOW() 
+        WHERE id = %s
+    """
+
+    try:
+        print(f"🔄 Tentando atualizar data de prospecção para o registro ID {registro_id} no banco de dados...")
+        with psycopg2.connect(CAMINHO_DB) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(sql_update, (registro_id,))
+                conn.commit() 
+                if cursor.rowcount > 0:
+                    print(f"✅ Data de prospecção do registro ID {registro_id} atualizada com sucesso.")
+                    return True
+                else:
+                    print(f"⚠️ Nenhuma linha afetada ao tentar atualizar o registro ID {registro_id}.")
+                    return False
+
+    except Exception as e:
+        print(f"🚨 Erro ao atualizar a data de prospecção no banco de dados: {e}")
+        return False

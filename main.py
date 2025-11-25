@@ -1,4 +1,4 @@
-# Arquivo: main.py (VERSÃO FINAL COM RENOMEAÇÃO PARA UNICIDADE, LIMPEZA E FLUXO CORRIGIDO)
+# Arquivo: main.py (VERSÃO FINAL COM RENOMEAÇÃO PARA UNICIDADE, LIMPEZA E FLUXO CORRIGIDO E ATUALIZAÇÃO NO BANCO)
 
 import os
 import glob
@@ -12,7 +12,8 @@ from PIL import Image
 from config import CAMINHO_LOCAL_PROPOSTAS, SSH_CONFIG, CAMINHO_REMOTO_PDFS
 from gerenciador_sftp import GerenciadorSFTP
 from agger import conectar_e_abrir_prospeccao
-from banco import buscar_cliente
+# --- ALTERAÇÃO AQUI: Importando a nova função de atualização ---
+from banco import buscar_cliente, atualizar_data_prospectada 
 from preencher.preencher import executar_preenchimento as preencher_todos
 from copiar_propostas import copiar_propostas_da_vps
 
@@ -162,6 +163,11 @@ def processar_propostas_locais():
             if sucesso:
                 print(f"✅ Automação para '{chave_unica}' concluída com sucesso.")
                 registrar_log(chave_unica, "SUCESSO", dados_cliente.get('vendedor', 'N/A'))
+                
+                # --- NOVO PASSO: ATUALIZAR DATA NO BANCO ---
+                registro_id = dados_cliente.get('id')
+                atualizar_data_prospectada(registro_id) # CHAMADA PARA A NOVA FUNÇÃO
+                # ------------------------------------------
                 
                 # 1. Processa a movimentação local E a exclusão remota dos arquivos ORIGINAIS
                 for arquivo_local_original in arquivos_para_mover_e_deletar_remotamente:
