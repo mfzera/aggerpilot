@@ -42,7 +42,7 @@ def selecionar_responsavel(situacao: str) -> bool:
         time.sleep(1.5)
 
         # --- PASSO 3: Selecionar o responsável via teclado (MÉTODO ROBUSTO) ---
-        responsavel_nome = "PALOMA RODRIGUES MACEDO"
+        responsavel_nome = "GESTAO"
 
         print(f"[ACAO] Selecionando '{responsavel_nome}' via teclado...")
         try:
